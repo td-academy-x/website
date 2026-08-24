@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مجتمع TD — Trading Doctor Academy</title>
+  <meta name="description" content="مجتمع TD Academy — تصفّح منشورات ومناقشات أعضاء مجتمع Trading Doctor Academy. انضم إلينا لتشارك وتتعلّم مع متداولين عرب.">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    .community-feed {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    .community-post {
+      background: #f8f9fa;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      transition: border-color 0.3s;
+    }
+    .community-post:hover {
+      border-color: rgba(0,0,0,0.15);
+    }
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .post-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green), var(--gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #111;
+      flex-shrink: 0;
+    }
+    .post-author-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: rgba(0,0,0,0.4);
+      filter: blur(4px);
+      user-select: none;
+    }
+    .post-date {
+      font-size: 0.8rem;
+      color: rgba(0,0,0,0.4);
+    }
+    .post-content {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #222;
+      margin-bottom: 16px;
+      white-space: pre-wrap;
+    }
+    .post-image {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      max-height: 400px;
+      object-fit: cover;
+    }
+    .post-stats {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      font-size: 0.85rem;
+      color: rgba(0,0,0,0.4);
+    }
+    .post-stats svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+    .post-comments {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+    .comment-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding: 12px;
+      background: rgba(0,0,0,0.03);
+      border-radius: 10px;
+    }
+    .comment-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: rgba(0,0,0,0.4);
+      flex-shrink: 0;
+    }
+    .comment-body {
+      flex: 1;
+    }
+    .comment-author {
+      font-size: 0.8rem;
+      color: rgba(0,0,0,0.4);
+      filter: blur(3px);
+      user-select: none;
+      margin-bottom: 4px;
+    }
+    .comment-text {
+      font-size: 0.9rem;
+      color: #444;
+      line-height: 1.6;
+    }
+    .community-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+    .community-empty h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      color: #222;
+    }
+    .community-empty p {
+      font-size: 1rem;
+      max-width: 480px;
+      margin: 0 auto 24px;
+      line-height: 1.7;
+    }
+    .join-cta-box {
+      background: linear-gradient(135deg, rgba(0,200,150,0.08), rgba(255,193,7,0.08));
+      border: 1px solid rgba(0,200,150,0.2);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      margin: 40px auto;
+      max-width: 600px;
+    }
+    .join-cta-box h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #222;
+    }
+    .join-cta-box p {
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+    .join-cta-box .btn-primary {
+      display: inline-block;
+    }
+    .locked-notice {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(255,193,7,0.08);
+      border: 1px solid rgba(255,193,7,0.25);
+      border-radius: 10px;
+      padding: 14px 20px;
+      margin-bottom: 32px;
+      font-size: 0.9rem;
+      color: #666;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .locked-notice svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--gold);
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="nav-brand"><img src="../logo-td.png" alt="TD Academy"></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">الرئيسية</a></li>
+    <li><a href="curriculum.html">المنهج</a></li>
+    <li><a href="about.html">د. حسين طاحون</a></li>
+    <li><a href="community.html" class="active">مجتمع TD</a></li>
+    <li><a href="blog.html">المدوّنة</a></li>
+    <li><a href="contact.html">تواصل معنا</a></li>
+  </ul>
+  <div class="nav-contact desktop-only">
+    <a href="mailto:info@tdacademy.net" class="nav-email" title="info@tdacademy.net"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="vertical-align:middle;margin-left:4px"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>info@tdacademy.net</a>
+    <a href="https://wa.me/971509566797" target="_blank" class="nav-whatsapp" title="تواصل عبر واتساب"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="vertical-align:middle;margin-left:4px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>واتساب</a>
+  </div>
+  <div class="nav-cta-group desktop-only">
+    <a href="dashboard/login.html" class="nav-cta" style="background:transparent;border:1px solid rgba(255,255,255,0.2)" onmouseover="this.style.borderColor='var(--green)';this.style.color='var(--green)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';this.style.color=''">تسجيل الدخول</a>
+    <a href="https://www.tdacademy.net/register" class="nav-cta">ابدأ رحلتك</a>
+  </div>
+  <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="القائمة"><svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-linecap="round" stroke-width="2" fill="none"/></svg></button>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero" style="padding-top:120px;padding-bottom:60px">
+  <img src="../community-bg.jpg" alt="" class="page-hero-bg">
+  <div class="page-hero-inner">
+    <span class="sec-tag" style="color:var(--gold)">المجتمع</span>
+    <h1>مجتمع <span>TD Academy</span></h1>
+    <p>مساحة تجمع المتداولين العرب لتبادل الأفكار والخبرات والتحليلات. انضم إلينا وكن جزءًا من مجتمع يدعمك في رحلة التداول.</p>
+  </div>
+  <style>.page-hero::before{background:linear-gradient(135deg,rgba(75,0,130,0.82),rgba(45,0,85,0.78)) !important}</style>
+</section>
+
+<!-- COMMUNITY FEED -->
+<section class="sec">
+  <div class="sec-inner">
+
+    <div class="locked-notice">
+      <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg>
+      <span>هذا عرض للقراءة فقط — سجّل في الأكاديمية للمشاركة والتعليق في المجتمع</span>
+    </div>
+
+    <div class="community-feed" id="communityFeed">
+      <!-- Posts loaded via JS -->
+    </div>
+
+    <div class="join-cta-box">
+      <h3>هل تريد المشاركة في المجتمع؟</h3>
+      <p>انضم إلى أكاديمية Trading Doctor لتتمكن من نشر أفكارك، طرح أسئلتك، والتفاعل مع متداولين آخرين يشاركونك نفس الشغف.</p>
+      <a href="https://www.tdacademy.net/register" class="btn-primary">انضم الآن</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="../logo-td.png" alt="TD Academy">
+      <p>Trading Doctor Academy — منهج عربي متكامل لتعلّم تداول الأسهم الأمريكية، من الصفر حتى الاحتراف.</p>
+    </div>
+    <div>
+      <h4>الموقع</h4>
+      <ul class="footer-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="about.html">عن د. حسين طاحون</a></li>
+        <li><a href="curriculum.html">المنهج</a></li>
+        <li><a href="community.html">مجتمع TD</a></li>
+        <li><a href="blog.html">المدوّنة</a></li>
+        <li><a href="contact.html">تواصل معنا</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>المنهج</h4>
+      <ul class="footer-links">
+        <li><a href="curriculum.html#season-1">الموسم الأول</a></li>
+        <li><a href="curriculum.html#season-2">الموسم الثاني</a></li>
+        <li><a href="curriculum.html#season-3">الموسم الثالث</a></li>
+        <li><a href="curriculum.html">عرض الكل</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>تابعنا</h4>
+      <div class="footer-social">
+        <a href="https://www.youtube.com/@TradingDoctorAcademy" target="_blank" title="يوتيوب"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+        <a href="https://www.facebook.com/TradingDoctorAcademy" target="_blank" title="فيسبوك"><svg viewBox="0 0 24 24"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.875V12h3.328l-.532 3.47h-2.796v8.384C19.612 22.954 24 17.99 24 12z"/></svg></a>
+        <a href="https://wa.me/971509566797" target="_blank" title="واتساب"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Trading Doctor Academy — جميع الحقوق محفوظة | د. حسين طاحون</p>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', function() {
+  var nav = document.getElementById('mainNav');
+  if (window.scrollY > 40) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
+
+// Load community posts from localStorage
+(function() {
+  var feed = document.getElementById('communityFeed');
+  var postsRaw = localStorage.getItem('td_posts');
+  var posts = [];
+
+  try {
+    posts = JSON.parse(postsRaw);
+    if (!Array.isArray(posts)) posts = [];
+  } catch(e) {
+    posts = [];
+  }
+
+  if (posts.length === 0) {
+    feed.innerHTML = '<div class="community-empty">' +
+      '<h3>المجتمع نشط ومليء بالأفكار!</h3>' +
+      '<p>يشارك أعضاء الأكاديمية يوميًا تحليلاتهم وأسئلتهم ونصائحهم. سجّل الآن لتتمكن من رؤية جميع المنشورات والمشاركة فيها.</p>' +
+      '<a href="https://www.tdacademy.net/register" class="btn-primary">انضم إلى المجتمع</a>' +
+      '</div>';
+    return;
+  }
+
+  // Sort posts by date (newest first)
+  posts.sort(function(a, b) {
+    return new Date(b.date || b.timestamp || 0) - new Date(a.date || a.timestamp || 0);
+  });
+
+  posts.forEach(function(post) {
+    var postEl = document.createElement('div');
+    postEl.className = 'community-post';
+
+    // Header
+    var header = '<div class="post-header">' +
+      '<div class="post-avatar">ع</div>' +
+      '<div>' +
+        '<div class="post-author-name">عضو في المجتمع</div>' +
+        '<div class="post-date">' + formatDate(post.date || post.timestamp) + '</div>' +
+      '</div>' +
+    '</div>';
+
+    // Content
+    var content = '<div class="post-content">' + escapeHtml(post.content || post.text || '') + '</div>';
+
+    // Image (if any)
+    var image = '';
+    if (post.image) {
+      image = '<img src="' + escapeHtml(post.image) + '" alt="" class="post-image">';
+    }
+
+    // Stats
+    var likes = post.likes || 0;
+    var commentsCount = (post.comments && post.comments.length) || 0;
+    var stats = '<div class="post-stats">' +
+      '<span><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>' + likes + '</span>' +
+      '<span><svg viewBox="0 0 24 24"><path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18z"/></svg>' + commentsCount + '</span>' +
+    '</div>';
+
+    // Comments
+    var commentsHtml = '';
+    if (post.comments && post.comments.length > 0) {
+      commentsHtml = '<div class="post-comments">';
+      var displayComments = post.comments.slice(0, 3); // Show max 3 comments
+      displayComments.forEach(function(comment) {
+        commentsHtml += '<div class="comment-item">' +
+          '<div class="comment-avatar">ع</div>' +
+          '<div class="comment-body">' +
+            '<div class="comment-author">عضو في المجتمع</div>' +
+            '<div class="comment-text">' + escapeHtml(comment.content || comment.text || '') + '</div>' +
+          '</div>' +
+        '</div>';
+      });
+      if (post.comments.length > 3) {
+        commentsHtml += '<div style="text-align:center;font-size:0.85rem;color:rgba(255,255,255,0.4);padding:8px">و ' + (post.comments.length - 3) + ' تعليقات أخرى...</div>';
+      }
+      commentsHtml += '</div>';
+    }
+
+    postEl.innerHTML = header + content + image + stats + commentsHtml;
+    feed.appendChild(postEl);
+  });
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    try {
+      var d = new Date(dateStr);
+      var options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return d.toLocaleDateString('ar-EG', options);
+    } catch(e) {
+      return dateStr;
+    }
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+})();
+</script>
+
+</body>
+</html>

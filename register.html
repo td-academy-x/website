@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#0A1628">
+  <title>اشتراك — TD Academy</title>
+  <meta name="robots" content="noindex,nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+
+  <link rel="preload" as="style" href="https://tdacademy.net/build/assets/app-BPFYML2U.css" /><link rel="stylesheet" href="https://tdacademy.net/build/assets/app-BPFYML2U.css" />
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+
+  <style>
+    .auth-body{position:relative;overflow:hidden}
+    .auth-video-bg{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      object-fit:cover;z-index:0;
+    }
+    .auth-video-overlay{
+      position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;
+      background:linear-gradient(135deg, rgba(10,22,40,0.92) 0%, rgba(2,18,8,0.88) 100%);
+    }
+    .auth-shell{position:relative;z-index:2}
+    .auth-logo-img{
+      display:block;margin:0 auto 8px;
+      width:120px;height:auto;
+    }
+    @media(max-width:768px){
+      .auth-video-bg{display:none}
+      .auth-body{
+        background:
+          linear-gradient(135deg, rgba(10,22,40,0.92) 0%, rgba(2,18,8,0.88) 100%),
+          url('hero-bg.webp') center/cover no-repeat;
+      }
+    }
+  </style>
+
+  </head>
+<body class="auth-body">
+
+  <video class="auth-video-bg" autoplay loop muted playsinline poster="hero-poster.jpg">
+    <source src="hero-video.webm" type="video/webm">
+    <source src="hero-video.mp4" type="video/mp4">
+  </video>
+  <div class="auth-video-overlay"></div>
+
+  <main class="auth-shell">
+    <a href="https://tdacademy.net" class="auth-logo">
+      <img src="logo-td.png" alt="TD Academy" class="auth-logo-img">
+    </a>
+
+    <div class="auth-card">
+        <h1>اشترك الآن</h1>
+  <p class="auth-sub">سجّل بياناتك للانضمام إلى TD Academy وابدأ رحلتك</p>
+
+
+  <form method="POST" action="https://tdacademy.net/register"
+        x-data="{ showPass: false, agreePrivacy: false }">
+    <input type="hidden" name="_token" value="f2Xh2oAlTOyC1mIhjIgXI70vAYfbVVmQlUwSPrS4" autocomplete="off">
+
+    <div class="auth-hp" aria-hidden="true">
+      <label>لا تملأ هذا الحقل
+        <input type="text" name="website" tabindex="-1" autocomplete="off">
+      </label>
+    </div>
+
+    <div class="auth-field">
+      <label for="name">الاسم الكامل</label>
+      <input id="name" name="name" type="text" value=""
+             class="auth-input "
+             placeholder="اكتب اسمك" required autofocus autocomplete="name">
+          </div>
+
+    <div class="auth-field">
+      <label for="email">البريد الإلكتروني</label>
+      <input id="email" name="email" type="email" value=""
+             class="auth-input "
+             placeholder="you@example.com" required autocomplete="email" dir="ltr" style="text-align:left">
+          </div>
+
+    <div class="auth-field">
+      <label for="phone_number">رقم الهاتف / واتساب</label>
+      <div class="auth-phone">
+        <div class="cc" x-data="countrySelect(JSON.parse('[{&quot;iso&quot;:&quot;AE&quot;,&quot;dial&quot;:&quot;+971&quot;,&quot;ar&quot;:&quot;الإمارات&quot;},{&quot;iso&quot;:&quot;SA&quot;,&quot;dial&quot;:&quot;+966&quot;,&quot;ar&quot;:&quot;السعودية&quot;},{&quot;iso&quot;:&quot;KW&quot;,&quot;dial&quot;:&quot;+965&quot;,&quot;ar&quot;:&quot;الكويت&quot;},{&quot;iso&quot;:&quot;QA&quot;,&quot;dial&quot;:&quot;+974&quot;,&quot;ar&quot;:&quot;قطر&quot;},{&quot;iso&quot;:&quot;BH&quot;,&quot;dial&quot;:&quot;+973&quot;,&quot;ar&quot;:&quot;البحرين&quot;},{&quot;iso&quot;:&quot;OM&quot;,&quot;dial&quot;:&quot;+968&quot;,&quot;ar&quot;:&quot;عُمان&quot;},{&quot;iso&quot;:&quot;EG&quot;,&quot;dial&quot;:&quot;+20&quot;,&quot;ar&quot;:&quot;مصر&quot;},{&quot;iso&quot;:&quot;JO&quot;,&quot;dial&quot;:&quot;+962&quot;,&quot;ar&quot;:&quot;الأردن&quot;},{&quot;iso&quot;:&quot;LB&quot;,&quot;dial&quot;:&quot;+961&quot;,&quot;ar&quot;:&quot;لبنان&quot;},{&quot;iso&quot;:&quot;IQ&quot;,&quot;dial&quot;:&quot;+964&quot;,&quot;ar&quot;:&quot;العراق&quot;},{&quot;iso&quot;:&quot;SY&quot;,&quot;dial&quot;:&quot;+963&quot;,&quot;ar&quot;:&quot;سوريا&quot;},{&quot;iso&quot;:&quot;PS&quot;,&quot;dial&quot;:&quot;+970&quot;,&quot;ar&quot;:&quot;فلسطين&quot;},{&quot;iso&quot;:&quot;YE&quot;,&quot;dial&quot;:&quot;+967&quot;,&quot;ar&quot;:&quot;اليمن&quot;},{&quot;iso&quot;:&quot;SD&quot;,&quot;dial&quot;:&quot;+249&quot;,&quot;ar&quot;:&quot;السودان&quot;},{&quot;iso&quot;:&quot;LY&quot;,&quot;dial&quot;:&quot;+218&quot;,&quot;ar&quot;:&quot;ليبيا&quot;},{&quot;iso&quot;:&quot;TN&quot;,&quot;dial&quot;:&quot;+216&quot;,&quot;ar&quot;:&quot;تونس&quot;},{&quot;iso&quot;:&quot;DZ&quot;,&quot;dial&quot;:&quot;+213&quot;,&quot;ar&quot;:&quot;الجزائر&quot;},{&quot;iso&quot;:&quot;MA&quot;,&quot;dial&quot;:&quot;+212&quot;,&quot;ar&quot;:&quot;المغرب&quot;},{&quot;iso&quot;:&quot;MR&quot;,&quot;dial&quot;:&quot;+222&quot;,&quot;ar&quot;:&quot;موريتانيا&quot;},{&quot;iso&quot;:&quot;SO&quot;,&quot;dial&quot;:&quot;+252&quot;,&quot;ar&quot;:&quot;الصومال&quot;},{&quot;iso&quot;:&quot;DJ&quot;,&quot;dial&quot;:&quot;+253&quot;,&quot;ar&quot;:&quot;جيبوتي&quot;},{&quot;iso&quot;:&quot;KM&quot;,&quot;dial&quot;:&quot;+269&quot;,&quot;ar&quot;:&quot;جزر القمر&quot;},{&quot;iso&quot;:&quot;TR&quot;,&quot;dial&quot;:&quot;+90&quot;,&quot;ar&quot;:&quot;تركيا&quot;},{&quot;iso&quot;:&quot;IR&quot;,&quot;dial&quot;:&quot;+98&quot;,&quot;ar&quot;:&quot;إيران&quot;},{&quot;iso&quot;:&quot;PK&quot;,&quot;dial&quot;:&quot;+92&quot;,&quot;ar&quot;:&quot;باكستان&quot;},{&quot;iso&quot;:&quot;IN&quot;,&quot;dial&quot;:&quot;+91&quot;,&quot;ar&quot;:&quot;الهند&quot;},{&quot;iso&quot;:&quot;ID&quot;,&quot;dial&quot;:&quot;+62&quot;,&quot;ar&quot;:&quot;إندونيسيا&quot;},{&quot;iso&quot;:&quot;MY&quot;,&quot;dial&quot;:&quot;+60&quot;,&quot;ar&quot;:&quot;ماليزيا&quot;},{&quot;iso&quot;:&quot;US&quot;,&quot;dial&quot;:&quot;+1&quot;,&quot;ar&quot;:&quot;الولايات المتحدة&quot;},{&quot;iso&quot;:&quot;CA&quot;,&quot;dial&quot;:&quot;+1&quot;,&quot;ar&quot;:&quot;كندا&quot;},{&quot;iso&quot;:&quot;GB&quot;,&quot;dial&quot;:&quot;+44&quot;,&quot;ar&quot;:&quot;المملكة المتحدة&quot;},{&quot;iso&quot;:&quot;FR&quot;,&quot;dial&quot;:&quot;+33&quot;,&quot;ar&quot;:&quot;فرنسا&quot;},{&quot;iso&quot;:&quot;DE&quot;,&quot;dial&quot;:&quot;+49&quot;,&quot;ar&quot;:&quot;ألمانيا&quot;},{&quot;iso&quot;:&quot;IT&quot;,&quot;dial&quot;:&quot;+39&quot;,&quot;ar&quot;:&quot;إيطاليا&quot;},{&quot;iso&quot;:&quot;ES&quot;,&quot;dial&quot;:&quot;+34&quot;,&quot;ar&quot;:&quot;إسبانيا&quot;},{&quot;iso&quot;:&quot;NL&quot;,&quot;dial&quot;:&quot;+31&quot;,&quot;ar&quot;:&quot;هولندا&quot;},{&quot;iso&quot;:&quot;SE&quot;,&quot;dial&quot;:&quot;+46&quot;,&quot;ar&quot;:&quot;السويد&quot;},{&quot;iso&quot;:&quot;CH&quot;,&quot;dial&quot;:&quot;+41&quot;,&quot;ar&quot;:&quot;سويسرا&quot;},{&quot;iso&quot;:&quot;AU&quot;,&quot;dial&quot;:&quot;+61&quot;,&quot;ar&quot;:&quot;أستراليا&quot;},{&quot;iso&quot;:&quot;NG&quot;,&quot;dial&quot;:&quot;+234&quot;,&quot;ar&quot;:&quot;نيجيريا&quot;},{&quot;iso&quot;:&quot;ZA&quot;,&quot;dial&quot;:&quot;+27&quot;,&quot;ar&quot;:&quot;جنوب أفريقيا&quot;},{&quot;iso&quot;:&quot;BR&quot;,&quot;dial&quot;:&quot;+55&quot;,&quot;ar&quot;:&quot;البرازيل&quot;},{&quot;iso&quot;:&quot;CN&quot;,&quot;dial&quot;:&quot;+86&quot;,&quot;ar&quot;:&quot;الصين&quot;},{&quot;iso&quot;:&quot;JP&quot;,&quot;dial&quot;:&quot;+81&quot;,&quot;ar&quot;:&quot;اليابان&quot;},{&quot;iso&quot;:&quot;KR&quot;,&quot;dial&quot;:&quot;+82&quot;,&quot;ar&quot;:&quot;كوريا الجنوبية&quot;},{&quot;iso&quot;:&quot;RU&quot;,&quot;dial&quot;:&quot;+7&quot;,&quot;ar&quot;:&quot;روسيا&quot;}]'), 'AE|+971')"
+     @keydown.escape.window="open = false">
+  <input type="hidden" name="dial_country" :value="selected ? selected.iso + '|' + selected.dial : ''">
+
+  <button type="button" class="auth-input cc-btn" @click="toggle()" :aria-expanded="open" aria-haspopup="listbox">
+    <span class="cc-flag" x-text="selected?.flag"></span>
+    <span class="cc-dial" x-text="selected?.dial"></span>
+    <svg class="cc-caret" :class="{ 'is-open': open }" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+
+  <div class="cc-panel" x-show="open" x-cloak @click.outside="open = false"
+       x-transition:enter="cc-enter" x-transition:enter-start="cc-enter-start" x-transition:enter-end="cc-enter-end"
+       x-transition:leave="cc-leave" x-transition:leave-start="cc-leave-start" x-transition:leave-end="cc-leave-end">
+    <div class="cc-search-wrap">
+      <svg class="cc-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" class="cc-search" x-model="q" x-ref="search"
+             placeholder="ابحث عن الدولة أو الرمز…" @keydown.enter.prevent="pickFirst()">
+    </div>
+    <ul class="cc-list" role="listbox">
+      <template x-for="c in filtered" :key="c.iso">
+        <li class="cc-opt" role="option" :class="{ 'is-sel': selected && c.iso === selected.iso }" @click="pick(c)">
+          <span class="cc-flag" x-text="c.flag"></span>
+          <span class="cc-name" x-text="c.ar"></span>
+          <span class="cc-dial" x-text="c.dial"></span>
+        </li>
+      </template>
+      <li class="cc-empty" x-show="filtered.length === 0">لا توجد نتائج</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  if (!window.countrySelect) {
+    window.countrySelect = function (countries, oldVal) {
+      const flagOf = (iso) => iso.toUpperCase().replace(/./g, (c) =>
+        String.fromCodePoint(127397 + c.charCodeAt(0)));
+      const list = countries.map((c) => ({ ...c, flag: flagOf(c.iso) }));
+      const iso = String(oldVal || 'AE|+971').split('|')[0];
+
+      return {
+        open: false,
+        q: '',
+        countries: list,
+        selected: list.find((c) => c.iso === iso) || list[0],
+        get filtered() {
+          const raw = this.q.trim();
+          if (!raw) return this.countries;
+          const q = raw.toLowerCase();
+          return this.countries.filter((c) =>
+            c.ar.includes(raw) || c.dial.includes(q) || c.iso.toLowerCase().includes(q));
+        },
+        toggle() {
+          this.open = !this.open;
+          if (this.open) {
+            this.q = '';
+            this.$nextTick(() => this.$refs.search && this.$refs.search.focus());
+          }
+        },
+        pick(c) { this.selected = c; this.open = false; },
+        pickFirst() { if (this.filtered.length) this.pick(this.filtered[0]); },
+      };
+    };
+  }
+</script>
+        <input id="phone_number" name="phone_number" type="tel" value=""
+               class="auth-input auth-num  "
+               placeholder="50 123 4567" required inputmode="tel" autocomplete="tel-national">
+      </div>
+                </div>
+
+    <div class="auth-field">
+      <label for="password">كلمة المرور</label>
+      <div class="auth-pass">
+        <input id="password" name="password" :type="showPass ? 'text' : 'password'" dir="ltr"
+               class="auth-input "
+               placeholder="٨ أحرف على الأقل" required autocomplete="new-password">
+        <button type="button" class="auth-pass-toggle" @click="showPass = !showPass"
+                :aria-label="showPass ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'">
+          <svg x-show="!showPass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg x-show="showPass" x-cloak viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+        </button>
+      </div>
+          </div>
+
+    <div class="auth-field">
+      <label for="password_confirmation">تأكيد كلمة المرور</label>
+      <div class="auth-pass">
+        <input id="password_confirmation" name="password_confirmation" :type="showPass ? 'text' : 'password'" dir="ltr"
+               class="auth-input" placeholder="أعد كتابة كلمة المرور" required autocomplete="new-password">
+      </div>
+    </div>
+
+
+    <label class="auth-check">
+      <input type="checkbox" name="privacy_consent" value="1" x-model="agreePrivacy" required>
+      <span>أوافق على <a href="https://tdacademy.net/privacy-policy" target="_blank">سياسة الخصوصية</a>
+            و<a href="https://tdacademy.net/terms" target="_blank">الشروط والأحكام</a></span>
+    </label>
+
+
+    <label class="auth-check">
+      <input type="checkbox" name="marketing_consent" value="1" >
+      <span>أرغب في تلقّي التحديثات والعروض عبر البريد الإلكتروني أو واتساب</span>
+    </label>
+
+    <button type="submit" class="auth-btn" :disabled="!agreePrivacy">اشترك الآن</button>
+  </form>
+
+  <div class="auth-links">
+    لديك حساب بالفعل؟ <a href="https://tdacademy.net/login">تسجيل الدخول</a>
+  </div>
+    </div>
+
+    <p class="auth-foot">
+      &copy; 2026 TD Academy — أكاديمية تداول الأسهم الأمريكية
+    </p>
+  </main>
+
+</body>
+</html>

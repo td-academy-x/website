@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0A1628">
+<title>مرحباً بك في TD Academy</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0A1628;--navy-light:#122240;
+  --green:#10B981;--green-hover:#059669;--green-light:#D1FAE5;--green-dark:#065F46;
+  --gold:#D4A853;--white:#FFFFFF;
+  --g50:#F8FAFC;--g100:#F1F5F9;--g200:#E2E8F0;--g300:#CBD5E1;
+  --g400:#94A3B8;--g500:#64748B;--g600:#475569;--g700:#334155;--g800:#1E293B;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Cairo',sans-serif;
+  background:var(--navy);
+  color:var(--white);
+  line-height:1.8;
+  direction:rtl;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+
+/* VIDEO BG */
+.video-bg{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.video-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;
+  background:linear-gradient(135deg,rgba(10,22,40,0.92),rgba(2,18,8,0.88))}
+@media(max-width:768px){
+  .video-bg{display:none}
+  body{background:linear-gradient(135deg,rgba(10,22,40,0.95),rgba(2,18,8,0.92)),url('hero-bg.webp') center/cover no-repeat fixed}
+}
+
+/* LAYOUT */
+.welcome-shell{position:relative;z-index:2;max-width:680px;margin:0 auto;padding:60px 24px 40px;text-align:center}
+
+/* LOGO */
+.welcome-logo{display:block;margin:0 auto 12px;width:160px;height:auto;animation:logoReveal 1.2s ease-out}
+@keyframes logoReveal{
+  0%{opacity:0;transform:translateY(-30px) scale(0.8)}
+  40%{opacity:1;transform:translateY(4px) scale(1.02)}
+  70%{transform:translateY(-2px) scale(1)}
+  100%{transform:translateY(0) scale(1)}
+}
+
+/* TAGLINE */
+.tagline{font-size:16px;color:var(--gold);font-weight:700;margin-bottom:36px;letter-spacing:0.5px;animation:fadeIn 1.5s ease-out .4s both}
+@keyframes fadeIn{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+
+/* HEADING */
+.welcome-h1{font-size:36px;font-weight:900;line-height:1.5;margin-bottom:8px}
+.welcome-h1 span{color:var(--green)}
+.welcome-sub{font-size:16px;color:rgba(255,255,255,0.6);margin-bottom:40px;line-height:2}
+
+/* WELCOME VIDEO */
+.welcome-video{
+  position:relative;border-radius:16px;overflow:hidden;margin-bottom:40px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.3);
+}
+.welcome-video video{width:100%;display:block;border-radius:16px}
+
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px;text-align:center}
+.step{
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px;padding:28px 16px;transition:all .3s;
+}
+.step:hover{background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.2);transform:translateY(-4px)}
+.step-icon{
+  width:48px;height:48px;margin:0 auto 14px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:14px;background:rgba(16,185,129,0.12);
+}
+.step-icon svg{width:24px;height:24px;stroke:var(--green);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.step-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px}
+.step-desc{font-size:12px;color:var(--g400);line-height:1.8}
+.step a{color:var(--green);text-decoration:none;font-weight:600}
+.step a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .steps{grid-template-columns:1fr}
+  .welcome-h1{font-size:28px}
+}
+
+/* CTA */
+.welcome-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--green);color:var(--white);border:none;
+  padding:16px 40px;border-radius:12px;font-size:18px;font-weight:700;
+  cursor:pointer;font-family:inherit;transition:all .2s;
+  text-decoration:none;margin-bottom:12px;
+}
+.welcome-cta:hover{background:var(--green-hover);transform:translateY(-2px);box-shadow:0 8px 30px rgba(16,185,129,0.3)}
+.welcome-cta svg{flex-shrink:0}
+.cta-hint{font-size:12px;color:var(--g400);margin-bottom:40px}
+
+/* QUOTE */
+.welcome-quote{
+  background:rgba(255,255,255,0.04);border-radius:16px;padding:28px 24px;
+  margin-bottom:40px;border-right:4px solid var(--green);text-align:right;
+}
+.welcome-quote p{font-size:15px;color:rgba(255,255,255,0.75);line-height:2;font-style:italic}
+.welcome-quote .quote-author{font-size:13px;color:var(--green);font-weight:700;margin-top:12px;font-style:normal}
+
+/* SOCIAL */
+.social-section{margin-bottom:32px}
+.social-title{font-size:14px;color:var(--g400);margin-bottom:16px;font-weight:600}
+.social-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.social-link{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;border-radius:10px;
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+  color:var(--g300);text-decoration:none;transition:all .2s;font-size:18px;
+}
+.social-link:hover{background:rgba(16,185,129,0.15);border-color:var(--green);color:var(--green);transform:translateY(-2px)}
+.social-link svg{width:20px;height:20px;fill:currentColor}
+
+/* DIVIDER */
+.divider{width:60px;height:2px;background:rgba(255,255,255,0.1);margin:0 auto 32px;border-radius:2px}
+
+/* FOOTER */
+.welcome-footer{font-size:11px;color:rgba(255,255,255,0.2);padding-top:20px;border-top:1px solid rgba(255,255,255,0.06)}
+
+</style>
+</head>
+<body>
+
+<video class="video-bg" autoplay loop muted playsinline poster="hero-poster.jpg">
+  <source src="hero-video.webm" type="video/webm">
+  <source src="hero-video.mp4" type="video/mp4">
+</video>
+<div class="video-overlay"></div>
+
+<div class="welcome-shell">
+
+  <img src="logo-td.png" alt="Trading Doctor Academy" class="welcome-logo">
+  <p class="tagline">من الفوضى إلى المعرفة</p>
+
+  <h1 class="welcome-h1">مرحباً بك في <span>Trading Doctor Academy</span></h1>
+  <p class="welcome-sub">تهانينا! تم تسجيلك بنجاح. أنت الآن جزء من مجتمع المتداولين العرب الذين اختاروا أن يتعلّموا بالطريقة الصحيحة.</p>
+
+  <!-- WELCOME VIDEO -->
+  <div class="welcome-video">
+    <video controls autoplay muted playsinline preload="auto" poster="welcome-poster.jpg">
+      <source src="welcome-video.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- 3 STEPS -->
+  <div class="steps">
+    <div class="step">
+      <div class="step-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div class="step-title">ادخل لوحة التحكم</div>
+      <div class="step-desc">سجّل دخولك إلى منصة التعلّم وتصفّح لوحة التحكم الخاصة بك</div>
+    </div>
+    <div class="step">
+      <div class="step-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" fill="none"/></svg></div>
+      <div class="step-title">ابدأ الموسم الأول</div>
+      <div class="step-desc">ابدأ رحلتك مع حامد وبكار في عالم الأسهم والاستثمار</div>
+    </div>
+    <div class="step">
+      <div class="step-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="step-title">انضم للمجتمع</div>
+      <div class="step-desc">تواصل معنا عبر <a href="https://wa.me/971509566797" target="_blank">واتساب</a> وتابعنا على وسائل التواصل</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <a href="https://www.tdacademy.net/login" class="welcome-cta">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+    ادخل المنصة التعليمية
+  </a>
+  <div class="cta-hint">ستصلك رسالة على بريدك الإلكتروني بتفاصيل الدخول</div>
+
+  <div class="divider"></div>
+
+  <!-- QUOTE -->
+  <div class="welcome-quote">
+    <p>«رحلة الألف ميل تبدأ بخطوة واحدة... وأنت اليوم خطوت الخطوة الأهم. لا تتعجّل، تعلّم بتمعّن، وثق بالمنهج.»</p>
+    <div class="quote-author">— د. حسين طاحون</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SOCIAL -->
+  <div class="social-section">
+    <div class="social-title">تابعنا على وسائل التواصل</div>
+    <div class="social-links">
+      <!-- YouTube - Academy -->
+      <a href="https://www.youtube.com/@TradingDoctorAcademy" target="_blank" class="social-link" title="يوتيوب الأكاديمية">
+        <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+      </a>
+      <!-- Facebook - Academy -->
+      <a href="https://www.facebook.com/profile.php?id=61591664904536" target="_blank" class="social-link" title="فيسبوك الأكاديمية">
+        <svg viewBox="0 0 24 24"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.3l-.5 3.5h-2.8v8.4A12 12 0 0 0 24 12z"/></svg>
+      </a>
+      <!-- Instagram - Dr. Hussein -->
+      <a href="https://www.instagram.com/dr.hussien_tahoun/" target="_blank" class="social-link" title="إنستغرام د. حسين">
+        <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7 .1 5.7.1 4.8.3 4 .6a5.9 5.9 0 0 0-2.1 1.3A5.9 5.9 0 0 0 .6 4C.3 4.8.1 5.7.1 7 0 8.3 0 8.7 0 12s0 3.7.1 5c0 1.3.2 2.2.5 3a5.9 5.9 0 0 0 1.3 2.1c.6.6 1.3 1.1 2.1 1.3.8.3 1.7.5 3 .5 1.3.1 1.7.1 5 .1s3.7 0 5-.1c1.3 0 2.2-.2 3-.5a5.9 5.9 0 0 0 2.1-1.3 5.9 5.9 0 0 0 1.3-2.1c.3-.8.5-1.7.5-3 .1-1.3.1-1.7.1-5s0-3.7-.1-5c0-1.3-.2-2.2-.5-3a5.9 5.9 0 0 0-1.3-2.1A5.9 5.9 0 0 0 20 .6c-.8-.3-1.7-.5-3-.5C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.2a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+      </a>
+      <!-- LinkedIn - Dr. Hussein -->
+      <a href="https://www.linkedin.com/in/dr-hussien-tahoun-827377421/" target="_blank" class="social-link" title="لينكدإن د. حسين">
+        <svg viewBox="0 0 24 24"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.2V9h3.4v1.6h.1a3.7 3.7 0 0 1 3.4-1.9c3.6 0 4.3 2.4 4.3 5.5v6.3zM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2zM7.1 20.5H3.5V9h3.6v11.5zM22.2 0H1.8C.8 0 0 .8 0 1.8v20.4C0 23.2.8 24 1.8 24h20.4c1 0 1.8-.8 1.8-1.8V1.8C24 .8 23.2 0 22.2 0z"/></svg>
+      </a>
+      <!-- X - Dr. Hussein -->
+      <a href="https://x.com/DrHussienTahoun" target="_blank" class="social-link" title="إكس د. حسين">
+        <svg viewBox="0 0 24 24"><path d="M18.2 2.2h3.3l-7.2 8.3L23 21.8h-6.6l-5.2-6.8-6 6.8H1.8l7.7-8.8L1.4 2.2H8l4.7 6.2 5.5-6.2zm-1.2 17.6h1.8L7.1 4h-2l12 15.8z"/></svg>
+      </a>
+      <!-- WhatsApp -->
+      <a href="https://wa.me/971509566797" target="_blank" class="social-link" title="واتساب">
+        <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-1-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3 0-.2-.2-.3-.5-.4zm-5.4 7.4c-2 0-3.9-.5-5.6-1.6l-.4-.2-4.1 1.1 1.1-4-.3-.4A11.1 11.1 0 0 1 .9 12C.9 5.9 5.9.9 12 .9S23.1 5.9 23.1 12 18.1 23.1 12 23.1l.1-.3zm0-22.8C5.4.3.3 5.4.3 12c0 2.1.5 4.1 1.5 5.9L0 24l6.3-1.7c1.7.9 3.7 1.4 5.7 1.4 6.6 0 11.7-5.1 11.7-11.7S18.6.3 12 .3l.1.7z"/></svg>
+      </a>
+      <!-- Email -->
+      <a href="mailto:info@tdacademy.net" class="social-link" title="البريد الإلكتروني">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="welcome-footer">
+    <p>&copy; 2026 TD Academy — جميع الحقوق محفوظة | د. حسين طاحون</p>
+  </div>
+
+</div>
+
+</body>
+</html>

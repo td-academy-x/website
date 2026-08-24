@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>لوحة الإدارة — TD Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+<style>
+/* Admin Tabs */
+.admin-tabs{display:flex;gap:4px;background:var(--g100);padding:4px;border-radius:12px;margin-bottom:24px}
+.admin-tab{
+  flex:1;padding:10px 16px;border:none;background:transparent;border-radius:10px;
+  font-family:inherit;font-size:13px;font-weight:700;color:var(--g500);
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.admin-tab:hover{color:var(--navy)}
+.admin-tab.active{background:var(--white);color:var(--navy);box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+.admin-tab .tab-badge{
+  background:#DC2626;color:#fff;font-size:10px;font-weight:800;
+  padding:1px 6px;border-radius:10px;min-width:18px;text-align:center;
+}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* Notification Bell */
+.notif-bell{
+  position:relative;background:none;border:none;cursor:pointer;padding:8px;
+  color:var(--g500);transition:color .2s;
+}
+.notif-bell:hover{color:var(--navy)}
+.notif-bell svg{width:20px;height:20px}
+.notif-badge{
+  position:absolute;top:2px;left:2px;
+  background:#DC2626;color:#fff;font-size:9px;font-weight:800;
+  width:16px;height:16px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+.notif-dropdown{
+  position:absolute;top:100%;left:0;width:360px;max-height:400px;overflow-y:auto;
+  background:var(--white);border:1px solid var(--g100);border-radius:12px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.12);z-index:200;display:none;
+}
+.notif-dropdown.show{display:block}
+.notif-dropdown-header{
+  padding:12px 16px;border-bottom:1px solid var(--g100);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.notif-dropdown-header h4{font-size:14px;font-weight:800;color:var(--navy)}
+.notif-mark-read{
+  background:none;border:none;cursor:pointer;font-family:inherit;
+  font-size:12px;color:var(--green);font-weight:600;
+}
+.notif-item{
+  padding:12px 16px;border-bottom:1px solid var(--g50);
+  cursor:pointer;transition:background .2s;
+}
+.notif-item:hover{background:var(--g50)}
+.notif-item.unread{background:rgba(16,185,129,0.04)}
+.notif-item-msg{font-size:13px;color:var(--g700);line-height:1.6}
+.notif-item-time{font-size:11px;color:var(--g400);margin-top:2px}
+.notif-empty{padding:32px 16px;text-align:center;color:var(--g400);font-size:13px}
+
+/* Article Review */
+.article-review{
+  background:var(--white);border:1px solid var(--g100);border-radius:12px;
+  padding:20px 24px;margin-bottom:16px;
+}
+.article-review-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:12px}
+.article-review-info{flex:1}
+.article-review-title{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.article-review-meta{font-size:12px;color:var(--g400);display:flex;gap:12px;flex-wrap:wrap}
+.article-review-body{
+  font-size:14px;color:var(--g600);line-height:1.9;
+  max-height:200px;overflow-y:auto;
+  padding:16px;background:var(--g50);border-radius:8px;margin-bottom:16px;
+  white-space:pre-wrap;
+}
+.article-review-actions{display:flex;gap:10px;align-items:center}
+.btn-approve{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--green);color:#fff;border:none;padding:8px 20px;
+  border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;
+}
+.btn-approve:hover{background:var(--green-hover)}
+.btn-reject{
+  display:inline-flex;align-items:center;gap:6px;
+  background:transparent;color:#DC2626;border:1px solid rgba(220,38,38,0.3);padding:8px 20px;
+  border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;
+}
+.btn-reject:hover{background:rgba(220,38,38,0.06)}
+
+/* Filter Alerts */
+.alert-item{
+  background:var(--white);border:1px solid var(--g100);border-radius:12px;
+  padding:16px 20px;margin-bottom:12px;display:flex;align-items:center;gap:16px;
+}
+.alert-icon{
+  width:40px;height:40px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.alert-icon.profanity{background:rgba(220,38,38,0.1);color:#DC2626}
+.alert-icon.policy{background:rgba(234,179,8,0.1);color:#B45309}
+.alert-info{flex:1;min-width:0}
+.alert-info-msg{font-size:13px;color:var(--g700);line-height:1.6}
+.alert-info-time{font-size:11px;color:var(--g400);margin-top:2px}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <a href="../index.html" class="sidebar-brand">
+    <img src="../../logo-td.png" alt="TD Academy">
+    <span>TD Academy</span>
+  </a>
+  <nav class="sidebar-nav">
+    <div class="sidebar-section">القائمة</div>
+    <a href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      الرئيسية
+    </a>
+    <a href="profile.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4-4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      الصفحة الشخصية
+    </a>
+    <a href="community.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      المجتمع
+    </a>
+    <a href="https://drhussientrading.learnworlds.com/courses" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+      المنصة التعليمية ↗
+    </a>
+    <div class="sidebar-section" id="admin-section">الإدارة</div>
+    <a href="admin.html" id="admin-link" class="active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      لوحة الإدارة
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user" onclick="window.location.href='profile.html'">
+      <img class="sidebar-user-avatar" id="sidebar-avatar" src="" alt="">
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name" id="sidebar-name"></div>
+        <div class="sidebar-user-role" id="sidebar-role"></div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <button class="mobile-toggle" onclick="toggleSidebar()">
+    <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <h1 class="topbar-title">لوحة الإدارة</h1>
+  <div class="topbar-actions">
+    <!-- Notification Bell -->
+    <div style="position:relative">
+      <button class="notif-bell" id="notif-bell" onclick="toggleNotifications()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="notif-badge" id="notif-badge" style="display:none">0</span>
+      </button>
+      <div class="notif-dropdown" id="notif-dropdown">
+        <div class="notif-dropdown-header">
+          <h4>الإشعارات</h4>
+          <button class="notif-mark-read" onclick="markAllRead()">تعيين الكل كمقروء</button>
+        </div>
+        <div id="notif-list"></div>
+      </div>
+    </div>
+    <button class="topbar-btn topbar-btn-outline" onclick="logout()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      خروج
+    </button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- Stats row -->
+  <div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:24px">
+    <div class="stat-card">
+      <div class="stat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+      <div class="stat-num" id="total-users">0</div>
+      <div class="stat-label">المستخدمين</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+      <div class="stat-num" id="sub-count">0</div>
+      <div class="stat-label">المشتركين</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+      <div class="stat-num" id="post-count">0</div>
+      <div class="stat-label">المنشورات</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+      <div class="stat-num" id="pending-count">0</div>
+      <div class="stat-label">مقالات بانتظار المراجعة</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:rgba(220,38,38,0.1);color:#DC2626"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <div class="stat-num" id="alert-count">0</div>
+      <div class="stat-label">تنبيهات الفلتر</div>
+    </div>
+  </div>
+
+  <!-- Admin Tabs -->
+  <div class="admin-tabs">
+    <button class="admin-tab active" onclick="switchTab('users')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      المستخدمين
+    </button>
+    <button class="admin-tab" onclick="switchTab('articles')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      المقالات
+      <span class="tab-badge" id="articles-badge" style="display:none">0</span>
+    </button>
+    <button class="admin-tab" onclick="switchTab('alerts')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      التنبيهات
+      <span class="tab-badge" id="alerts-badge" style="display:none">0</span>
+    </button>
+  </div>
+
+  <!-- TAB: USERS -->
+  <div class="tab-panel active" id="panel-users">
+    <div class="dash-card">
+      <div class="dash-card-header">
+        <h3 class="dash-card-title">جميع المستخدمين</h3>
+        <div class="search-box" style="width:280px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="ابحث بالاسم أو البريد..." oninput="filterUsers(this.value)">
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>المستخدم</th>
+              <th>الدور</th>
+              <th>تاريخ الانضمام</th>
+              <th>الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="users-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: ARTICLES -->
+  <div class="tab-panel" id="panel-articles">
+    <div id="pending-articles-list"></div>
+    <div id="no-pending" style="display:none;text-align:center;padding:48px 24px;color:var(--g400)">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:12px;opacity:0.4"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <p>لا توجد مقالات بانتظار المراجعة حالياً</p>
+    </div>
+    <h3 style="font-size:1rem;font-weight:800;color:var(--navy);margin-top:32px;margin-bottom:16px" id="reviewed-title" style="display:none">المقالات المُراجعة</h3>
+    <div id="reviewed-articles-list"></div>
+  </div>
+
+  <!-- TAB: ALERTS -->
+  <div class="tab-panel" id="panel-alerts">
+    <div id="alerts-list"></div>
+    <div id="no-alerts" style="display:none;text-align:center;padding:48px 24px;color:var(--g400)">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:12px;opacity:0.4"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <p>لا توجد تنبيهات حالياً</p>
+    </div>
+  </div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<!-- Delete user modal -->
+<div class="modal-overlay" id="delete-user-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('delete-user-modal')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h3>حذف المستخدم</h3>
+    <p style="font-size:14px;color:var(--g600);margin-bottom:8px">هل أنت متأكد من حذف هذا المستخدم؟</p>
+    <p style="font-size:13px;color:#DC2626;margin-bottom:20px">سيتم حذف جميع منشوراته وتعليقاته. لا يمكن التراجع.</p>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-red btn-md" id="confirm-delete-user">نعم، احذف</button>
+      <button class="btn btn-outline btn-md" onclick="closeModal('delete-user-modal')">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- Reject article modal -->
+<div class="modal-overlay" id="reject-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('reject-modal')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h3>رفض المقال</h3>
+    <p style="font-size:14px;color:var(--g600);margin-bottom:12px">أضف ملاحظة للكاتب (اختياري):</p>
+    <textarea id="reject-note" style="width:100%;min-height:80px;padding:12px;border:1px solid var(--g200);border-radius:8px;font-family:inherit;font-size:14px;resize:vertical" placeholder="مثال: يرجى تعديل المقال وإعادة إرساله"></textarea>
+    <div style="display:flex;gap:10px;margin-top:16px">
+      <button class="btn btn-red btn-md" id="confirm-reject">رفض المقال</button>
+      <button class="btn btn-outline btn-md" onclick="closeModal('reject-modal')">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+var currentUser = null;
+var allUsers = [];
+
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+
+function initAdmin(){
+  currentUser = requireAuth();
+  if(!currentUser) return;
+  currentUser = refreshUser(currentUser);
+
+  if(!can(currentUser,'view_users')){
+    window.location.href='index.html';
+    return;
+  }
+
+  initSidebar(currentUser);
+  loadStats();
+  loadUsers();
+  loadPendingArticles();
+  loadAlerts();
+  loadNotifications();
+}
+
+/* ─── Stats ─── */
+function loadStats(){
+  allUsers = getUsers();
+  var posts = getPosts();
+  var pending = getPendingArticles().filter(function(a){return a.status==='pending';});
+  var alerts = getMyNotifications(currentUser.id, currentUser.role).filter(function(n){return n.type==='filter_alert';});
+
+  document.getElementById('total-users').textContent = allUsers.length;
+  document.getElementById('sub-count').textContent = allUsers.filter(function(u){return u.role==='subscriber';}).length;
+  document.getElementById('post-count').textContent = posts.length;
+  document.getElementById('pending-count').textContent = pending.length;
+  document.getElementById('alert-count').textContent = alerts.length;
+
+  var articlesBadge = document.getElementById('articles-badge');
+  if(pending.length > 0){
+    articlesBadge.textContent = pending.length;
+    articlesBadge.style.display = 'inline';
+  }
+}
+
+/* ─── Tabs ─── */
+function switchTab(tab){
+  document.querySelectorAll('.admin-tab').forEach(function(t,i){
+    t.classList.remove('active');
+    if((tab==='users'&&i===0)||(tab==='articles'&&i===1)||(tab==='alerts'&&i===2)) t.classList.add('active');
+  });
+  document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('panel-'+tab).classList.add('active');
+}
+
+/* ─── Users ─── */
+function loadUsers(){
+  allUsers = getUsers();
+  renderUsers(allUsers);
+}
+
+function renderUsers(users){
+  var tbody = document.getElementById('users-tbody');
+  var isSuperAdmin = currentUser.role==='super_admin';
+
+  tbody.innerHTML = users.map(function(u){
+    var isSelf = u.id===currentUser.id;
+    var roleColor = ROLES[u.role]?ROLES[u.role].color:'gray';
+
+    var roleCell = '<span class="badge badge-'+roleColor+'">'+ROLES_AR[u.role]+'</span>';
+    if(isSuperAdmin && !isSelf){
+      roleCell = '<select class="role-select" onchange="changeRole(\''+u.id+'\',this.value)">';
+      ['free','subscriber','admin','super_admin'].forEach(function(r){
+        roleCell += '<option value="'+r+'"'+(u.role===r?' selected':'')+'>'+ROLES_AR[r]+'</option>';
+      });
+      roleCell += '</select>';
+    }
+
+    var actions = '';
+    if(isSuperAdmin && !isSelf){
+      actions = '<div class="table-actions"><button class="danger" onclick="confirmDeleteUser(\''+u.id+'\')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg> حذف</button></div>';
+    } else if(isSelf){
+      actions = '<span class="badge badge-green">أنت</span>';
+    } else {
+      actions = '—';
+    }
+
+    return '<tr>'+
+      '<td><div class="user-cell"><img src="'+avatarSrc(u)+'" alt=""><div><div class="user-cell-name">'+esc(u.name)+'</div><div class="user-cell-email">'+esc(u.email)+'</div></div></div></td>'+
+      '<td>'+roleCell+'</td>'+
+      '<td style="font-size:13px;color:var(--g500)">'+esc(u.joinDate)+'</td>'+
+      '<td>'+actions+'</td>'+
+    '</tr>';
+  }).join('');
+}
+
+function changeRole(userId, newRole){
+  if(currentUser.role!=='super_admin'){
+    showToast('ليس لديك صلاحية تغيير الأدوار','error');
+    loadUsers();
+    return;
+  }
+  var users = getUsers();
+  var idx = users.findIndex(function(u){return u.id===userId;});
+  if(idx===-1) return;
+  users[idx].role = newRole;
+  saveUsers(users);
+  showToast('تم تغيير دور '+users[idx].name+' إلى '+ROLES_AR[newRole],'success');
+  loadUsers();
+  loadStats();
+}
+
+var deleteUserId = null;
+function confirmDeleteUser(userId){
+  deleteUserId = userId;
+  document.getElementById('delete-user-modal').classList.add('show');
+  document.getElementById('confirm-delete-user').onclick = function(){
+    if(currentUser.role!=='super_admin'){
+      showToast('ليس لديك صلاحية حذف المستخدمين','error');
+      closeModal('delete-user-modal');
+      return;
+    }
+    var users = getUsers().filter(function(u){return u.id!==deleteUserId;});
+    saveUsers(users);
+    var posts = getPosts();
+    posts = posts.filter(function(p){return p.authorId!==deleteUserId;});
+    posts.forEach(function(p){
+      p.comments = p.comments.filter(function(c){return c.authorId!==deleteUserId;});
+      p.likes = p.likes.filter(function(id){return id!==deleteUserId;});
+    });
+    savePosts(posts);
+    closeModal('delete-user-modal');
+    showToast('تم حذف المستخدم بنجاح','success');
+    loadUsers();
+    loadStats();
+  };
+}
+
+function filterUsers(query){
+  var q = query.trim().toLowerCase();
+  if(!q){renderUsers(allUsers);return;}
+  var filtered = allUsers.filter(function(u){
+    return u.name.toLowerCase().indexOf(q)!==-1 || u.email.toLowerCase().indexOf(q)!==-1;
+  });
+  renderUsers(filtered);
+}
+
+/* ─── Pending Articles ─── */
+function loadPendingArticles(){
+  var articles = getPendingArticles();
+  var pending = articles.filter(function(a){return a.status==='pending';});
+  var reviewed = articles.filter(function(a){return a.status!=='pending';});
+
+  var pendingContainer = document.getElementById('pending-articles-list');
+  var noPending = document.getElementById('no-pending');
+
+  if(pending.length === 0){
+    pendingContainer.innerHTML = '';
+    noPending.style.display = 'block';
+  } else {
+    noPending.style.display = 'none';
+    pendingContainer.innerHTML = pending.map(function(a){
+      var date = new Date(a.submittedAt).toLocaleDateString('ar-EG',{year:'numeric',month:'long',day:'numeric'});
+      return '<div class="article-review">'+
+        '<div class="article-review-header">'+
+          '<div class="article-review-info">'+
+            '<div class="article-review-title">'+esc(a.title)+'</div>'+
+            '<div class="article-review-meta">'+
+              '<span>الكاتب: '+esc(a.authorName)+'</span>'+
+              '<span>التصنيف: '+esc(a.category)+'</span>'+
+              '<span>'+date+'</span>'+
+            '</div>'+
+          '</div>'+
+        '</div>'+
+        '<div style="font-size:13px;color:var(--g500);margin-bottom:8px"><strong>الملخص:</strong> '+esc(a.summary)+'</div>'+
+        '<div class="article-review-body">'+esc(a.content)+'</div>'+
+        '<div class="article-review-actions">'+
+          '<button class="btn-approve" onclick="approveArticle(\''+a.id+'\')">'+
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>'+
+            'نشر المقال'+
+          '</button>'+
+          '<button class="btn-reject" onclick="rejectArticle(\''+a.id+'\')">'+
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'+
+            'رفض'+
+          '</button>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
+
+  var reviewedContainer = document.getElementById('reviewed-articles-list');
+  var reviewedTitle = document.getElementById('reviewed-title');
+  if(reviewed.length > 0){
+    reviewedTitle.style.display = 'block';
+    var statusLabels = {approved:'تم النشر',rejected:'مرفوض'};
+    var statusClasses = {approved:'status-approved',rejected:'status-rejected'};
+    reviewedContainer.innerHTML = reviewed.map(function(a){
+      var date = new Date(a.submittedAt).toLocaleDateString('ar-EG',{year:'numeric',month:'long',day:'numeric'});
+      return '<div class="alert-item">'+
+        '<div class="alert-info">'+
+          '<div class="alert-info-msg"><strong>'+esc(a.title)+'</strong> — '+esc(a.authorName)+'</div>'+
+          '<div class="alert-info-time">'+date+'</div>'+
+        '</div>'+
+        '<span class="article-status '+(statusClasses[a.status]||'')+'">'+((statusLabels[a.status])||a.status)+'</span>'+
+      '</div>';
+    }).join('');
+  } else {
+    reviewedTitle.style.display = 'none';
+    reviewedContainer.innerHTML = '';
+  }
+}
+
+function approveArticle(articleId){
+  var articles = getPendingArticles();
+  var idx = articles.findIndex(function(a){return a.id===articleId;});
+  if(idx===-1) return;
+
+  articles[idx].status = 'approved';
+  articles[idx].reviewedAt = new Date().toISOString();
+  savePendingArticles(articles);
+
+  notifyUser(articles[idx].authorId, {
+    type: 'article_approved',
+    message: 'تمت الموافقة على مقالك "'+articles[idx].title+'" وتم نشره على المدوّنة!'
+  });
+
+  sendEmailPlaceholder(
+    articles[idx].authorId,
+    'تمت الموافقة على مقالك!',
+    'مبروك! تم نشر مقالك "'+articles[idx].title+'" على مدوّنة TD Academy.'
+  );
+
+  showToast('تم نشر المقال بنجاح','success');
+  loadPendingArticles();
+  loadStats();
+}
+
+var rejectArticleId = null;
+function rejectArticle(articleId){
+  rejectArticleId = articleId;
+  document.getElementById('reject-note').value = '';
+  document.getElementById('reject-modal').classList.add('show');
+  document.getElementById('confirm-reject').onclick = function(){
+    var note = document.getElementById('reject-note').value.trim();
+    var articles = getPendingArticles();
+    var idx = articles.findIndex(function(a){return a.id===rejectArticleId;});
+    if(idx===-1) return;
+
+    articles[idx].status = 'rejected';
+    articles[idx].reviewedAt = new Date().toISOString();
+    articles[idx].reviewNote = note;
+    savePendingArticles(articles);
+
+    var msg = 'تم رفض مقالك "'+articles[idx].title+'"';
+    if(note) msg += ' — ملاحظة: '+note;
+    notifyUser(articles[idx].authorId, {type:'article_rejected', message:msg});
+
+    sendEmailPlaceholder(
+      articles[idx].authorId,
+      'تحديث بشأن مقالك',
+      msg
+    );
+
+    closeModal('reject-modal');
+    showToast('تم رفض المقال','success');
+    loadPendingArticles();
+    loadStats();
+  };
+}
+
+/* ─── Alerts ─── */
+function loadAlerts(){
+  var notifs = getMyNotifications(currentUser.id, currentUser.role);
+  var alerts = notifs.filter(function(n){return n.type==='filter_alert';});
+
+  var alertContainer = document.getElementById('alerts-list');
+  var noAlerts = document.getElementById('no-alerts');
+  var alertsBadge = document.getElementById('alerts-badge');
+
+  if(alerts.length === 0){
+    alertContainer.innerHTML = '';
+    noAlerts.style.display = 'block';
+    alertsBadge.style.display = 'none';
+  } else {
+    noAlerts.style.display = 'none';
+    var unreadAlerts = alerts.filter(function(a){return !a.read;}).length;
+    if(unreadAlerts > 0){
+      alertsBadge.textContent = unreadAlerts;
+      alertsBadge.style.display = 'inline';
+    } else {
+      alertsBadge.style.display = 'none';
+    }
+
+    alertContainer.innerHTML = alerts.map(function(a){
+      var iconClass = a.alertType==='profanity' ? 'profanity' : 'policy';
+      var iconSvg = a.alertType==='profanity'
+        ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>'
+        : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+      return '<div class="alert-item">'+
+        '<div class="alert-icon '+iconClass+'">'+iconSvg+'</div>'+
+        '<div class="alert-info">'+
+          '<div class="alert-info-msg">'+esc(a.message)+'</div>'+
+          '<div class="alert-info-time">'+timeAgo(new Date(a.date).getTime())+'</div>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+/* ─── Notifications ─── */
+function loadNotifications(){
+  var notifs = getMyNotifications(currentUser.id, currentUser.role);
+  var unread = notifs.filter(function(n){return !n.read;}).length;
+  var badge = document.getElementById('notif-badge');
+
+  if(unread > 0){
+    badge.textContent = unread > 9 ? '9+' : unread;
+    badge.style.display = 'flex';
+  } else {
+    badge.style.display = 'none';
+  }
+
+  var listEl = document.getElementById('notif-list');
+  if(notifs.length === 0){
+    listEl.innerHTML = '<div class="notif-empty">لا توجد إشعارات</div>';
+    return;
+  }
+
+  listEl.innerHTML = notifs.slice(0,20).map(function(n){
+    return '<div class="notif-item'+(n.read?'':' unread')+'" onclick="handleNotifClick(\''+n.id+'\')">'+
+      '<div class="notif-item-msg">'+esc(n.message)+'</div>'+
+      '<div class="notif-item-time">'+timeAgo(new Date(n.date).getTime())+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+function toggleNotifications(){
+  var dropdown = document.getElementById('notif-dropdown');
+  dropdown.classList.toggle('show');
+}
+
+function handleNotifClick(notifId){
+  var notifs = getNotifications();
+  var idx = notifs.findIndex(function(n){return n.id===notifId;});
+  if(idx!==-1){
+    notifs[idx].read = true;
+    saveNotifications(notifs);
+    loadNotifications();
+  }
+  document.getElementById('notif-dropdown').classList.remove('show');
+}
+
+function markAllRead(){
+  var notifs = getNotifications();
+  notifs.forEach(function(n){n.read = true;});
+  saveNotifications(notifs);
+  loadNotifications();
+  showToast('تم تعيين جميع الإشعارات كمقروءة','success');
+}
+
+document.addEventListener('click', function(e){
+  var bell = document.getElementById('notif-bell');
+  var dropdown = document.getElementById('notif-dropdown');
+  if(!bell.contains(e.target) && !dropdown.contains(e.target)){
+    dropdown.classList.remove('show');
+  }
+});
+
+/* ─── Modal ─── */
+function closeModal(id){
+  document.getElementById(id).classList.remove('show');
+}
+
+initAdmin();
+</script>
+
+</body>
+</html>

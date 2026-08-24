@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>المجتمع — TD Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <a href="../index.html" class="sidebar-brand">
+    <img src="../../logo-td.png" alt="TD Academy">
+    <span>TD Academy</span>
+  </a>
+  <nav class="sidebar-nav">
+    <div class="sidebar-section">القائمة</div>
+    <a href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      الرئيسية
+    </a>
+    <a href="profile.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4-4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      الصفحة الشخصية
+    </a>
+    <a href="community.html" class="active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      المجتمع
+    </a>
+    <a href="write-article.html" id="write-article-link" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      انشر مقالك
+    </a>
+    <a href="https://drhussientrading.learnworlds.com/courses" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+      المنصة التعليمية ↗
+    </a>
+    <div class="sidebar-section" id="admin-section" style="display:none">الإدارة</div>
+    <a href="admin.html" id="admin-link" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      لوحة الإدارة
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user" onclick="window.location.href='profile.html'">
+      <img class="sidebar-user-avatar" id="sidebar-avatar" src="" alt="">
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name" id="sidebar-name"></div>
+        <div class="sidebar-user-role" id="sidebar-role"></div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <button class="mobile-toggle" onclick="toggleSidebar()">
+    <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <h1 class="topbar-title">المجتمع</h1>
+  <div class="topbar-actions">
+    <div style="position:relative">
+      <button class="notif-bell" id="notif-bell" onclick="toggleNotifDropdown()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="notif-badge" id="notif-badge" style="display:none">0</span>
+      </button>
+      <div class="notif-dropdown" id="notif-dropdown">
+        <div class="notif-dropdown-header">
+          <h4>الإشعارات</h4>
+          <button class="notif-mark-read" onclick="markAllNotifRead()">تعيين الكل كمقروء</button>
+        </div>
+        <div id="notif-list"></div>
+      </div>
+    </div>
+    <button class="topbar-btn topbar-btn-outline" onclick="logout()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      خروج
+    </button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- Community Hero -->
+  <div class="community-hero">
+    <div class="community-hero-bg"></div>
+    <div class="community-hero-content">
+      <div class="community-hero-text">
+        <h2>مجتمع TD Academy</h2>
+        <p>تواصل مع المتدربين، شارك تحليلاتك، وتعلّم من تجارب الآخرين</p>
+      </div>
+      <div class="community-hero-count" id="community-count">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        <span id="hero-member-count">0</span> عضو
+      </div>
+    </div>
+  </div>
+
+  <div class="community-layout">
+
+    <!-- Feed -->
+    <div class="community-feed">
+
+      <!-- Guidelines -->
+      <div class="community-guidelines" id="guidelines">
+        <h4>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          قواعد المجتمع
+        </h4>
+        <ul>
+          <li>احترم جميع الأعضاء وآراءهم</li>
+          <li>لا توصيات شراء أو بيع مباشرة</li>
+          <li>شارك تحليلاتك لتستفيد وتُفيد</li>
+          <li>المحتوى التعليمي والنقاش البنّاء فقط</li>
+          <li style="color:#DC2626;font-weight:700">يُمنع منعاً باتاً النقاش في الدين أو السياسة أو العنصرية — المخالف يتعرّض للحظر</li>
+        </ul>
+      </div>
+
+      <!-- Composer (hidden for free users) -->
+      <div class="post-composer" id="composer" style="display:none">
+        <div class="post-composer-top">
+          <img class="post-composer-avatar" id="composer-avatar" src="" alt="">
+          <span style="font-size:14px;font-weight:700;color:var(--navy)" id="composer-name"></span>
+        </div>
+        <textarea id="post-content" placeholder="شارك فكرة، تحليل، أو سؤال مع المجتمع..."></textarea>
+        <!-- Image preview -->
+        <div class="post-image-preview" id="image-preview" style="display:none">
+          <img id="image-preview-img" src="" alt="">
+          <button class="remove-preview" onclick="removeImagePreview()">&times;</button>
+        </div>
+        <!-- Video URL input -->
+        <div class="video-url-input" id="video-url-input" style="display:none">
+          <input type="text" id="video-url-field" placeholder="https://www.youtube.com/watch?v=..." dir="ltr">
+          <button onclick="embedVideo()">تضمين</button>
+        </div>
+        <!-- Video preview -->
+        <div class="post-video-preview" id="video-preview" style="display:none">
+          <iframe id="video-preview-iframe" src="" allowfullscreen></iframe>
+          <button class="remove-preview" onclick="removeVideoPreview()">&times;</button>
+        </div>
+        <!-- Hidden file input -->
+        <input type="file" id="image-file-input" accept="image/*" style="display:none" onchange="handleImageSelect(event)">
+        <div class="post-composer-actions">
+          <div style="display:flex;gap:8px;align-items:center">
+            <!-- Media buttons -->
+            <button type="button" class="post-composer-media-btn" onclick="document.getElementById('image-file-input').click()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              صورة
+            </button>
+            <button type="button" class="post-composer-media-btn" onclick="toggleVideoInput()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              فيديو
+            </button>
+            <!-- Admin: pin & announce buttons -->
+            <button type="button" class="btn btn-sm btn-outline admin-only" style="display:none" id="btn-pin-toggle" onclick="toggleComposerPin()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>
+              تثبيت
+            </button>
+            <button type="button" class="btn btn-sm btn-outline admin-only" style="display:none" id="btn-announce-toggle" onclick="toggleComposerAnnounce()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+              إعلان
+            </button>
+          </div>
+          <button class="btn btn-sm btn-green" onclick="submitPost()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            نشر
+          </button>
+        </div>
+      </div>
+
+      <!-- Free user notice -->
+      <div class="upgrade-banner" id="free-notice" style="display:none">
+        <h3>شارك في المجتمع</h3>
+        <p>اشترك للمشاركة بالمنشورات والتعليقات والتفاعل مع المتدربين</p>
+        <a href="https://drhussientrading.learnworlds.com/courses" target="_blank" class="btn btn-green btn-sm">اشترك الآن</a>
+      </div>
+
+      <!-- Posts container -->
+      <div id="posts-container"></div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="community-sidebar">
+      <div class="dash-card">
+        <h3 class="dash-card-title" style="margin-bottom:16px">أعضاء المجتمع</h3>
+        <div id="members-list"></div>
+      </div>
+      <div class="dash-card">
+        <h3 class="dash-card-title" style="margin-bottom:12px">روابط سريعة</h3>
+        <a href="https://drhussientrading.learnworlds.com/courses" target="_blank" style="display:flex;align-items:center;gap:8px;padding:8px 0;color:var(--green);text-decoration:none;font-size:13px;font-weight:600">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          المنصة التعليمية
+        </a>
+        <a href="../curriculum.html" style="display:flex;align-items:center;gap:8px;padding:8px 0;color:var(--g600);text-decoration:none;font-size:13px;font-weight:600">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          المنهج الدراسي
+        </a>
+        <a href="../contact.html" style="display:flex;align-items:center;gap:8px;padding:8px 0;color:var(--g600);text-decoration:none;font-size:13px;font-weight:600">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          تواصل معنا
+        </a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<!-- Image Lightbox -->
+<div class="image-lightbox" id="image-lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- Delete confirm modal -->
+<div class="modal-overlay" id="delete-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeDeleteModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h3>حذف المنشور</h3>
+    <p style="font-size:14px;color:var(--g600);margin-bottom:20px">هل أنت متأكد من حذف هذا المنشور؟ لا يمكن التراجع عن هذا الإجراء.</p>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-red btn-md" id="confirm-delete-btn">نعم، احذف</button>
+      <button class="btn btn-outline btn-md" onclick="closeDeleteModal()">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+function esc(s){if(!s)return '';var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+let currentUser = null;
+let composerPinned = false;
+let composerAnnounce = false;
+let composerImage = null; // base64 string
+let composerVideoUrl = null; // youtube embed url
+
+function initCommunity(){
+  currentUser = requireAuth();
+  if(!currentUser) return;
+  currentUser = refreshUser(currentUser);
+  initSidebar(currentUser);
+
+  // composer
+  if(can(currentUser,'write_post')){
+    document.getElementById('composer').style.display='block';
+    document.getElementById('composer-avatar').src = avatarSrc(currentUser);
+    document.getElementById('composer-name').textContent = currentUser.name;
+
+    if(can(currentUser,'pin_post')){
+      document.querySelectorAll('.admin-only').forEach(el=>el.style.display='inline-flex');
+    }
+  } else {
+    document.getElementById('free-notice').style.display='block';
+  }
+
+  // hero count
+  const allUsers = getUsers();
+  document.getElementById('hero-member-count').textContent = allUsers.length;
+
+  renderPosts();
+  renderMembers();
+}
+
+function toggleComposerPin(){
+  composerPinned = !composerPinned;
+  const btn = document.getElementById('btn-pin-toggle');
+  btn.style.background = composerPinned ? 'rgba(212,168,83,0.15)' : '';
+  btn.style.borderColor = composerPinned ? 'var(--gold)' : '';
+  btn.style.color = composerPinned ? '#92400E' : '';
+}
+
+function toggleComposerAnnounce(){
+  composerAnnounce = !composerAnnounce;
+  const btn = document.getElementById('btn-announce-toggle');
+  btn.style.background = composerAnnounce ? 'rgba(37,99,235,0.1)' : '';
+  btn.style.borderColor = composerAnnounce ? '#2563eb' : '';
+  btn.style.color = composerAnnounce ? '#2563eb' : '';
+}
+
+// === Media handling functions ===
+function handleImageSelect(event){
+  const file = event.target.files[0];
+  if(!file) return;
+  if(file.size > 5*1024*1024){ showToast('حجم الصورة يجب أن يكون أقل من 5MB','error'); return; }
+  const reader = new FileReader();
+  reader.onload = function(e){
+    composerImage = e.target.result;
+    document.getElementById('image-preview-img').src = composerImage;
+    document.getElementById('image-preview').style.display = 'flex';
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeImagePreview(){
+  composerImage = null;
+  document.getElementById('image-preview').style.display = 'none';
+  document.getElementById('image-preview-img').src = '';
+  document.getElementById('image-file-input').value = '';
+}
+
+function toggleVideoInput(){
+  const el = document.getElementById('video-url-input');
+  el.style.display = el.style.display === 'none' ? 'flex' : 'none';
+}
+
+function getYoutubeEmbedUrl(url){
+  if(!url) return null;
+  let videoId = null;
+  // youtube.com/watch?v=ID
+  let match = url.match(/[?&]v=([^&#]+)/);
+  if(match) videoId = match[1];
+  // youtu.be/ID
+  if(!videoId){
+    match = url.match(/youtu\.be\/([^?&#]+)/);
+    if(match) videoId = match[1];
+  }
+  // youtube.com/embed/ID
+  if(!videoId){
+    match = url.match(/youtube\.com\/embed\/([^?&#]+)/);
+    if(match) videoId = match[1];
+  }
+  if(videoId) return 'https://www.youtube.com/embed/' + videoId;
+  return null;
+}
+
+function embedVideo(){
+  const input = document.getElementById('video-url-field');
+  const url = input.value.trim();
+  const embedUrl = getYoutubeEmbedUrl(url);
+  if(!embedUrl){ showToast('رابط الفيديو غير صالح. استخدم رابط يوتيوب','error'); return; }
+  composerVideoUrl = embedUrl;
+  document.getElementById('video-preview-iframe').src = embedUrl;
+  document.getElementById('video-preview').style.display = 'block';
+  document.getElementById('video-url-input').style.display = 'none';
+}
+
+function removeVideoPreview(){
+  composerVideoUrl = null;
+  document.getElementById('video-preview').style.display = 'none';
+  document.getElementById('video-preview-iframe').src = '';
+  document.getElementById('video-url-field').value = '';
+}
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('image-lightbox').classList.add('show');
+}
+function closeLightbox(){
+  document.getElementById('image-lightbox').classList.remove('show');
+}
+
+function submitPost(){
+  const content = document.getElementById('post-content').value.trim();
+  if(!content && !composerImage && !composerVideoUrl){ showToast('اكتب شيئاً أو أضف صورة/فيديو قبل النشر','error'); return; }
+
+  // Profanity & policy filter
+  var filterResult = checkContent(content);
+  if(!filterResult.ok){
+    if(filterResult.reason === 'profanity'){
+      showToast('تم رفض المنشور — يحتوي على ألفاظ غير لائقة','error');
+      notifyAdmins({type:'filter_alert', message:'محاولة نشر محتوى يحتوي على ألفاظ نابية من العضو: '+currentUser.name, postContent:content, userId:currentUser.id});
+      sendEmailPlaceholder('admin@tdacademy.net','تنبيه فلتر المحتوى','العضو '+currentUser.name+' حاول نشر محتوى يحتوي على: '+filterResult.word);
+    } else {
+      showToast('تم رفض المنشور — يحتوي على محتوى مخالف لسياسة المجتمع (دين/سياسة/عنصرية)','error');
+      notifyAdmins({type:'policy_alert', message:'محاولة نشر محتوى مخالف للسياسة من العضو: '+currentUser.name, postContent:content, userId:currentUser.id});
+      sendEmailPlaceholder('admin@tdacademy.net','تنبيه سياسة المجتمع','العضو '+currentUser.name+' حاول نشر محتوى يتعلق بـ: '+filterResult.word);
+    }
+    return;
+  }
+
+  const posts = getPosts();
+  const post = {
+    id: 'p'+Date.now(),
+    authorId: currentUser.id,
+    content,
+    timestamp: Date.now(),
+    time: timeAgo(Date.now()),
+    likes: [],
+    comments: [],
+    pinned: composerPinned,
+    announcement: composerAnnounce,
+    image: composerImage || null,
+    videoUrl: composerVideoUrl || null
+  };
+  posts.push(post);
+  savePosts(posts);
+
+  // Notify subscribers about new post
+  var users = getUsers();
+  users.forEach(function(u){
+    if(u.id !== currentUser.id){
+      notifyUser(u.id, {type:'new_post', message: currentUser.name+' نشر منشوراً جديداً في المجتمع', postId:post.id});
+    }
+  });
+  sendEmailPlaceholder('subscribers@tdacademy.net','منشور جديد في مجتمع TD',currentUser.name+' نشر منشوراً جديداً');
+
+  document.getElementById('post-content').value='';
+  composerPinned=false; composerAnnounce=false;
+  composerImage=null; composerVideoUrl=null;
+  removeImagePreview();
+  removeVideoPreview();
+  const pinBtn=document.getElementById('btn-pin-toggle');
+  const annBtn=document.getElementById('btn-announce-toggle');
+  if(pinBtn){pinBtn.style.background='';pinBtn.style.borderColor='';pinBtn.style.color='';}
+  if(annBtn){annBtn.style.background='';annBtn.style.borderColor='';annBtn.style.color='';}
+
+  showToast('تم نشر المنشور بنجاح','success');
+  renderPosts();
+}
+
+function renderPosts(){
+  const posts = getPosts();
+  const users = getUsers();
+  const container = document.getElementById('posts-container');
+
+  if(posts.length===0){
+    container.innerHTML='<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><h3>لا توجد منشورات بعد</h3><p>كن أول من ينشر في مجتمع TD Academy!</p></div>';
+    return;
+  }
+
+  // sort: pinned first, then by timestamp desc
+  const sorted = [...posts].sort((a,b)=>{
+    if(a.pinned && !b.pinned) return -1;
+    if(!a.pinned && b.pinned) return 1;
+    return b.timestamp - a.timestamp;
+  });
+
+  container.innerHTML = sorted.map(post=>{
+    const author = users.find(u=>u.id===post.authorId)||{name:'مجهول',role:'free',avatar:''};
+    const isLiked = post.likes.includes(currentUser.id);
+    const canDel = canDeletePost(currentUser, post);
+    const canPin = can(currentUser,'pin_post');
+
+    let badges = '';
+    if(post.pinned) badges += '<div class="post-pin-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg> منشور مثبّت</div>';
+    if(post.announcement) badges += '<div class="post-announce-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg> إعلان</div>';
+
+    let menuHtml = '';
+    if(canDel || canPin){
+      menuHtml = '<div class="dropdown" style="margin-right:auto"><button class="post-menu" onclick="toggleMenu(this)"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg></button><div class="dropdown-menu">';
+      if(canPin) menuHtml += '<button onclick="togglePin(\''+post.id+'\')"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>'+(post.pinned?'إلغاء التثبيت':'تثبيت')+'</button>';
+      if(canDel) menuHtml += '<button class="danger" onclick="confirmDelete(\''+post.id+'\')"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>حذف</button>';
+      menuHtml += '</div></div>';
+    }
+
+    let commentsHtml = '';
+    if(post.comments && post.comments.length > 0){
+      commentsHtml = '<div class="post-comments">' +
+        post.comments.map(c=>{
+          const cAuthor = users.find(u=>u.id===c.authorId)||{name:'مجهول',avatar:''};
+          const canDelComment = (c.authorId===currentUser.id) || can(currentUser,'delete_any_post');
+          return '<div class="comment">'+
+            '<img class="comment-avatar" src="'+avatarSrc(cAuthor)+'" alt="">'+
+            '<div class="comment-body">'+
+              '<span class="comment-author">'+esc(cAuthor.name)+'</span>'+
+              (canDelComment?'<button onclick="deleteComment(\''+post.id+'\',\''+c.id+'\')" style="float:left;background:none;border:none;cursor:pointer;font-size:11px;color:var(--g400)">حذف</button>':'')+
+              '<div class="comment-text">'+esc(c.text)+'</div>'+
+              '<div class="comment-time">'+timeAgo(c.timestamp)+'</div>'+
+            '</div>'+
+          '</div>';
+        }).join('') +
+      '</div>';
+    }
+
+    let commentInput = '';
+    if(can(currentUser,'comment')){
+      commentInput = '<div class="comment-input"><input type="text" placeholder="اكتب تعليقاً..." onkeydown="if(event.key===\'Enter\')addComment(\''+post.id+'\',this)"><button onclick="addComment(\''+post.id+'\',this.previousElementSibling)">تعليق</button></div>';
+    }
+
+    return '<div class="post-card'+(post.pinned?' pinned':'')+(post.announcement?' announcement':'')+'">'+
+      badges+
+      '<div class="post-header">'+
+        '<img class="post-avatar" src="'+avatarSrc(author)+'" alt="">'+
+        '<div>'+
+          '<span class="post-author">'+esc(author.name)+'</span>'+
+          '<span class="post-author-role"><span class="badge badge-'+(ROLES[author.role]?ROLES[author.role].color:'gray')+'">'+ROLES_AR[author.role]+'</span></span>'+
+          '<div class="post-time">'+timeAgo(post.timestamp)+'</div>'+
+        '</div>'+
+        menuHtml+
+      '</div>'+
+      '<div class="post-body">'+(post.content?esc(post.content).replace(/\n/g,'<br>'):'')+'</div>'+
+      // Media: image
+      (post.image ? '<div class="post-media"><img src="'+post.image+'" alt="صورة منشور" onclick="openLightbox(this.src)"></div>' : '')+
+      // Media: video
+      (post.videoUrl ? '<div class="post-media"><iframe src="'+post.videoUrl+'" allowfullscreen></iframe></div>' : '')+
+      '<div class="post-actions">'+
+        '<button class="post-action-btn'+(isLiked?' liked':'')+'" onclick="animateLike(this);toggleLike(\''+post.id+'\')">'+
+          '<svg viewBox="0 0 24 24"'+(isLiked?' fill="currentColor"':'')+'><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
+          (post.likes.length>0?'<span class="like-count">'+post.likes.length+'</span>':'')+
+        '</button>'+
+        '<button class="post-action-btn" onclick="this.closest(\'.post-card\').querySelector(\'.comment-input input\')?.focus()">'+
+          '<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>'+
+          (post.comments.length>0?'<span class="comment-count">'+post.comments.length+'</span>':'')+
+        '</button>'+
+      '</div>'+
+      commentsHtml+
+      commentInput+
+    '</div>';
+  }).join('');
+}
+
+function toggleLike(postId){
+  if(!can(currentUser,'like')){ showToast('اشترك للتفاعل مع المنشورات','error'); return; }
+  const posts = getPosts();
+  const post = posts.find(p=>p.id===postId);
+  if(!post) return;
+  const idx = post.likes.indexOf(currentUser.id);
+  if(idx===-1) post.likes.push(currentUser.id);
+  else post.likes.splice(idx,1);
+  savePosts(posts);
+  renderPosts();
+}
+
+function addComment(postId, input){
+  if(!can(currentUser,'comment')){ showToast('اشترك للتعليق على المنشورات','error'); return; }
+  const text = input.value.trim();
+  if(!text) return;
+
+  // Profanity & policy filter for comments
+  var filterResult = checkContent(text);
+  if(!filterResult.ok){
+    if(filterResult.reason === 'profanity'){
+      showToast('تم رفض التعليق — يحتوي على ألفاظ غير لائقة','error');
+    } else {
+      showToast('تم رفض التعليق — محتوى مخالف لسياسة المجتمع','error');
+    }
+    notifyAdmins({type:'filter_alert', message:'محاولة تعليق مخالف من: '+currentUser.name, postContent:text, userId:currentUser.id});
+    return;
+  }
+
+  const posts = getPosts();
+  const post = posts.find(p=>p.id===postId);
+  if(!post) return;
+  post.comments.push({
+    id:'c'+Date.now(),
+    authorId: currentUser.id,
+    text,
+    timestamp: Date.now()
+  });
+  savePosts(posts);
+
+  // Notify post author about new comment
+  if(post.authorId !== currentUser.id){
+    notifyUser(post.authorId, {type:'new_comment', message: currentUser.name+' علّق على منشورك', postId:postId});
+  }
+  // Notify other commenters on the same post
+  var notifiedIds = {};
+  notifiedIds[currentUser.id] = true;
+  notifiedIds[post.authorId] = true;
+  post.comments.forEach(function(c){
+    if(!notifiedIds[c.authorId]){
+      notifyUser(c.authorId, {type:'comment_on_thread', message: currentUser.name+' علّق على منشور أنت شاركت فيه', postId:postId});
+      notifiedIds[c.authorId] = true;
+    }
+  });
+
+  input.value='';
+  renderPosts();
+}
+
+function deleteComment(postId, commentId){
+  const posts = getPosts();
+  const post = posts.find(p=>p.id===postId);
+  if(!post) return;
+  post.comments = post.comments.filter(c=>c.id!==commentId);
+  savePosts(posts);
+  renderPosts();
+}
+
+function togglePin(postId){
+  const posts = getPosts();
+  const post = posts.find(p=>p.id===postId);
+  if(!post) return;
+  post.pinned = !post.pinned;
+  savePosts(posts);
+  showToast(post.pinned?'تم تثبيت المنشور':'تم إلغاء التثبيت','success');
+  renderPosts();
+}
+
+let deleteTarget = null;
+function confirmDelete(postId){
+  deleteTarget = postId;
+  document.getElementById('delete-modal').classList.add('show');
+  document.getElementById('confirm-delete-btn').onclick = function(){
+    const posts = getPosts().filter(p=>p.id!==deleteTarget);
+    savePosts(posts);
+    closeDeleteModal();
+    showToast('تم حذف المنشور','success');
+    renderPosts();
+  };
+}
+function closeDeleteModal(){
+  document.getElementById('delete-modal').classList.remove('show');
+  deleteTarget=null;
+}
+
+function toggleMenu(btn){
+  const menu = btn.nextElementSibling;
+  document.querySelectorAll('.dropdown-menu.show').forEach(m=>{if(m!==menu)m.classList.remove('show')});
+  menu.classList.toggle('show');
+}
+
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.dropdown')){
+    document.querySelectorAll('.dropdown-menu.show').forEach(m=>m.classList.remove('show'));
+  }
+});
+
+function animateLike(btn){
+  btn.classList.add('like-animate');
+  setTimeout(()=>btn.classList.remove('like-animate'),400);
+}
+
+function renderMembers(){
+  const users = getUsers();
+  const container = document.getElementById('members-list');
+  const sorted = [...users].sort((a,b)=>(ROLES[b.role]?.level||0)-(ROLES[a.role]?.level||0));
+
+  container.innerHTML = sorted.slice(0,10).map(u=>{
+    return '<div class="member-item">'+
+      '<img class="member-item-avatar" src="'+avatarSrc(u)+'" alt="">'+
+      '<div>'+
+        '<div class="member-item-name">'+u.name+'</div>'+
+        '<div class="member-item-role"><span class="badge badge-'+(ROLES[u.role]?ROLES[u.role].color:'gray')+'">'+ROLES_AR[u.role]+'</span></div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+initCommunity();
+initNotifBell();
+document.addEventListener('click',function(e){
+  var bell=document.getElementById('notif-bell');var dd=document.getElementById('notif-dropdown');
+  if(bell&&dd&&!bell.contains(e.target)&&!dd.contains(e.target))dd.classList.remove('show');
+});
+</script>
+
+</body>
+</html>
