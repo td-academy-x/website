@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>الصفحة الشخصية — TD Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <a href="../index.html" class="sidebar-brand">
+    <img src="../logo-td.png" alt="TD Academy">
+    <span>TD Academy</span>
+  </a>
+  <nav class="sidebar-nav">
+    <div class="sidebar-section">القائمة</div>
+    <a href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      الرئيسية
+    </a>
+    <a href="profile.html" class="active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4-4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      الصفحة الشخصية
+    </a>
+    <a href="community.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      المجتمع
+    </a>
+    <a href="write-article.html" id="write-article-link" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      انشر مقالك
+    </a>
+    <a href="https://drhussientrading.learnworlds.com/courses" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+      المنصة التعليمية ↗
+    </a>
+    <div class="sidebar-section" id="admin-section" style="display:none">الإدارة</div>
+    <a href="admin.html" id="admin-link" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      لوحة الإدارة
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user" onclick="window.location.href='profile.html'">
+      <img class="sidebar-user-avatar" id="sidebar-avatar" src="" alt="">
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name" id="sidebar-name"></div>
+        <div class="sidebar-user-role" id="sidebar-role"></div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <button class="mobile-toggle" onclick="toggleSidebar()">
+    <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <h1 class="topbar-title">الصفحة الشخصية</h1>
+  <div class="topbar-actions">
+    <div style="position:relative">
+      <button class="notif-bell" id="notif-bell" onclick="toggleNotifDropdown()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="notif-badge" id="notif-badge" style="display:none">0</span>
+      </button>
+      <div class="notif-dropdown" id="notif-dropdown">
+        <div class="notif-dropdown-header">
+          <h4>الإشعارات</h4>
+          <button class="notif-mark-read" onclick="markAllNotifRead()">تعيين الكل كمقروء</button>
+        </div>
+        <div id="notif-list"></div>
+      </div>
+    </div>
+    <button class="topbar-btn topbar-btn-outline" onclick="logout()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      خروج
+    </button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- Profile header -->
+  <div class="profile-header" id="profile-header">
+    <div class="profile-avatar-wrap">
+      <img class="profile-avatar" id="profile-avatar" src="" alt="">
+      <label class="profile-avatar-edit" for="avatar-upload">
+        <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </label>
+      <input type="file" id="avatar-upload" accept="image/*" style="display:none" onchange="handleAvatarUpload(this)">
+    </div>
+    <div class="profile-info">
+      <h2 id="profile-name"></h2>
+      <span class="role-badge" id="profile-role-badge"></span>
+      <p class="profile-meta" id="profile-meta"></p>
+    </div>
+  </div>
+
+  <!-- Edit form -->
+  <div class="dash-card">
+    <div class="dash-card-header">
+      <h3 class="dash-card-title">تعديل المعلومات الشخصية</h3>
+    </div>
+    <form onsubmit="saveProfile(event)">
+      <div class="profile-form">
+        <div class="form-group">
+          <label>الاسم الكامل</label>
+          <input type="text" id="edit-name" required>
+        </div>
+        <div class="form-group">
+          <label>البريد الإلكتروني</label>
+          <input type="email" id="edit-email" required>
+        </div>
+        <div class="form-group full-width">
+          <label>نبذة شخصية</label>
+          <textarea id="edit-bio" placeholder="اكتب نبذة قصيرة عنك..."></textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-green btn-md">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          حفظ التغييرات
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Change password -->
+  <div class="dash-card" style="margin-top:20px">
+    <div class="dash-card-header">
+      <h3 class="dash-card-title">تغيير كلمة المرور</h3>
+    </div>
+    <form onsubmit="changePassword(event)">
+      <div class="profile-form">
+        <div class="form-group">
+          <label>كلمة المرور الحالية</label>
+          <input type="password" id="old-pass" required>
+        </div>
+        <div class="form-group">
+          <label>كلمة المرور الجديدة</label>
+          <input type="password" id="new-pass" minlength="8" required>
+        </div>
+        <div class="form-group">
+          <label>تأكيد كلمة المرور الجديدة</label>
+          <input type="password" id="confirm-pass" required>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-outline btn-md">تغيير كلمة المرور</button>
+      </div>
+    </form>
+  </div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+<script>
+function initProfile(){
+  const user = requireAuth();
+  if(!user) return;
+  const u = refreshUser(user);
+  initSidebar(u);
+
+  document.getElementById('profile-name').textContent = u.name;
+  document.getElementById('profile-avatar').src = avatarSrc(u);
+  const badge = document.getElementById('profile-role-badge');
+  badge.textContent = ROLES_AR[u.role];
+  badge.className = 'role-badge ' + (u.role==='super_admin'?'super-admin':u.role==='admin'?'admin':u.role==='subscriber'?'subscriber':'free');
+  document.getElementById('profile-meta').textContent = 'انضم في ' + u.joinDate + ' • ' + u.email;
+
+  document.getElementById('edit-name').value = u.name;
+  document.getElementById('edit-email').value = u.email;
+  document.getElementById('edit-bio').value = u.bio || '';
+}
+
+function saveProfile(e){
+  e.preventDefault();
+  let user = JSON.parse(localStorage.getItem('td_current_user'));
+  let users = getUsers();
+  const idx = users.findIndex(u=>u.id===user.id);
+  if(idx===-1) return;
+
+  const newEmail = document.getElementById('edit-email').value;
+  if(newEmail !== user.email && users.find(u=>u.email===newEmail)){
+    showToast('هذا البريد مسجّل مسبقاً','error');
+    return;
+  }
+
+  users[idx].name = document.getElementById('edit-name').value;
+  users[idx].email = newEmail;
+  users[idx].bio = document.getElementById('edit-bio').value;
+  saveUsers(users);
+  localStorage.setItem('td_current_user',JSON.stringify(users[idx]));
+  showToast('تم حفظ التغييرات بنجاح','success');
+  initProfile();
+}
+
+function changePassword(e){
+  e.preventDefault();
+  let user = JSON.parse(localStorage.getItem('td_current_user'));
+  let users = getUsers();
+  const idx = users.findIndex(u=>u.id===user.id);
+
+  if(document.getElementById('old-pass').value !== users[idx].password){
+    showToast('كلمة المرور الحالية غير صحيحة','error');
+    return;
+  }
+  if(document.getElementById('new-pass').value !== document.getElementById('confirm-pass').value){
+    showToast('كلمتا المرور الجديدتين غير متطابقتين','error');
+    return;
+  }
+
+  users[idx].password = document.getElementById('new-pass').value;
+  saveUsers(users);
+  localStorage.setItem('td_current_user',JSON.stringify(users[idx]));
+  showToast('تم تغيير كلمة المرور بنجاح','success');
+  e.target.reset();
+}
+
+function handleAvatarUpload(input){
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    let user = JSON.parse(localStorage.getItem('td_current_user'));
+    let users = getUsers();
+    const idx = users.findIndex(u=>u.id===user.id);
+    users[idx].avatar = e.target.result;
+    saveUsers(users);
+    localStorage.setItem('td_current_user',JSON.stringify(users[idx]));
+    showToast('تم تحديث الصورة الشخصية','success');
+    initProfile();
+  };
+  reader.readAsDataURL(file);
+}
+
+initProfile();
+initNotifBell();
+document.addEventListener('click',function(e){
+  var bell=document.getElementById('notif-bell');var dd=document.getElementById('notif-dropdown');
+  if(bell&&dd&&!bell.contains(e.target)&&!dd.contains(e.target))dd.classList.remove('show');
+});
+</script>
+
+</body>
+</html>

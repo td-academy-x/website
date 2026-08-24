@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>لوحة المتدرب — TD Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <a href="../index.html" class="sidebar-brand">
+    <img src="../logo-td.png" alt="TD Academy">
+    <span>TD Academy</span>
+  </a>
+  <nav class="sidebar-nav">
+    <div class="sidebar-section">القائمة</div>
+    <a href="index.html" class="active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      الرئيسية
+    </a>
+    <a href="profile.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4-4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      الصفحة الشخصية
+    </a>
+    <a href="community.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      المجتمع
+    </a>
+    <a href="write-article.html" id="write-article-link" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      انشر مقالك
+    </a>
+    <a href="https://drhussientrading.learnworlds.com/courses" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+      المنصة التعليمية ↗
+    </a>
+
+    <div class="sidebar-section" id="admin-section" style="display:none">الإدارة</div>
+    <a href="admin.html" id="admin-link" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      لوحة الإدارة
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user" onclick="window.location.href='profile.html'">
+      <img class="sidebar-user-avatar" id="sidebar-avatar" src="" alt="">
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name" id="sidebar-name"></div>
+        <div class="sidebar-user-role" id="sidebar-role"></div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <button class="mobile-toggle" onclick="toggleSidebar()">
+    <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <h1 class="topbar-title">الرئيسية</h1>
+  <div class="topbar-actions">
+    <!-- Notification Bell -->
+    <div style="position:relative">
+      <button class="notif-bell" id="notif-bell" onclick="toggleNotifDropdown()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="notif-badge" id="notif-badge" style="display:none">0</span>
+      </button>
+      <div class="notif-dropdown" id="notif-dropdown">
+        <div class="notif-dropdown-header">
+          <h4>الإشعارات</h4>
+          <button class="notif-mark-read" onclick="markAllNotifRead()">تعيين الكل كمقروء</button>
+        </div>
+        <div id="notif-list"></div>
+      </div>
+    </div>
+    <a href="https://drhussientrading.learnworlds.com/courses" target="_blank" class="topbar-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      ادخل المنصة
+    </a>
+    <button class="topbar-btn topbar-btn-outline" onclick="logout()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      خروج
+    </button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- Profile Hero Card -->
+  <div class="profile-hero" id="profile-hero">
+    <div class="profile-hero-bg"></div>
+    <div class="profile-hero-content">
+      <img class="profile-hero-avatar" id="hero-avatar" src="" alt="">
+      <div class="profile-hero-info">
+        <h2 id="hero-name"></h2>
+        <span class="role-badge" id="hero-role-badge"></span>
+        <p class="profile-hero-bio" id="hero-bio"></p>
+      </div>
+      <div class="profile-hero-actions" id="hero-actions">
+        <a href="profile.html" class="btn btn-sm btn-outline" style="color:var(--white);border-color:rgba(255,255,255,0.3)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4-4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          الملف الشخصي
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upgrade banner for free users -->
+  <div class="upgrade-banner" id="upgrade-banner" style="display:none">
+    <h3>ارتقِ بمستواك — اشترك الآن</h3>
+    <p>احصل على وصول كامل للمجتمع والمنصة التعليمية وكل محتوى TD Academy</p>
+    <a href="https://drhussientrading.learnworlds.com/courses" target="_blank" class="btn btn-green btn-md">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      اشترك الآن
+    </a>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid" id="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <div class="stat-num" id="stat-members">0</div>
+      <div class="stat-label">أعضاء المجتمع</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      </div>
+      <div class="stat-num" id="stat-posts">0</div>
+      <div class="stat-label">منشور</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon gold">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+      </div>
+      <div class="stat-num">3</div>
+      <div class="stat-label">مواسم تعليمية</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+      </div>
+      <div class="stat-num" id="stat-subscribers">0</div>
+      <div class="stat-label">مشترك فعّال</div>
+    </div>
+  </div>
+
+  <!-- Two column layout -->
+  <div class="dash-grid-2">
+
+    <!-- Quick Actions -->
+    <div class="dash-card">
+      <div class="dash-card-header">
+        <h3 class="dash-card-title">الوصول السريع</h3>
+      </div>
+      <div class="quick-actions-grid">
+        <a href="community.html" class="quick-action-card">
+          <div class="quick-action-icon" style="background:rgba(16,185,129,0.1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <span>المجتمع</span>
+        </a>
+        <a href="https://drhussientrading.learnworlds.com/courses" target="_blank" class="quick-action-card">
+          <div class="quick-action-icon" style="background:rgba(37,99,235,0.1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          </div>
+          <span>المنصة التعليمية</span>
+        </a>
+        <a href="profile.html" class="quick-action-card">
+          <div class="quick-action-icon" style="background:rgba(212,168,83,0.1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#D4A853" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4-4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <span>الملف الشخصي</span>
+        </a>
+        <a href="../curriculum.html" class="quick-action-card">
+          <div class="quick-action-icon" style="background:rgba(124,58,237,0.1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <span>المنهج الدراسي</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Daily Tip -->
+    <div class="dash-card tip-card">
+      <div class="dash-card-header">
+        <h3 class="dash-card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="vertical-align:middle;margin-left:6px"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          نصيحة تداول
+        </h3>
+      </div>
+      <div class="tip-content" id="daily-tip"></div>
+    </div>
+
+  </div>
+
+  <!-- Admin Quick Panel (super_admin only) -->
+  <div class="dash-card admin-quick-panel" id="admin-panel" style="display:none">
+    <div class="dash-card-header">
+      <h3 class="dash-card-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="vertical-align:middle;margin-left:6px"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09"/></svg>
+        لوحة الإدارة السريعة
+      </h3>
+      <a href="admin.html" class="btn btn-sm btn-outline">إدارة المستخدمين</a>
+    </div>
+    <div class="admin-quick-stats">
+      <div class="admin-quick-stat">
+        <div class="admin-quick-stat-num" id="aq-total">0</div>
+        <div class="admin-quick-stat-label">إجمالي المستخدمين</div>
+      </div>
+      <div class="admin-quick-stat">
+        <div class="admin-quick-stat-num" style="color:var(--green)" id="aq-subs">0</div>
+        <div class="admin-quick-stat-label">مشتركين</div>
+      </div>
+      <div class="admin-quick-stat">
+        <div class="admin-quick-stat-num" style="color:#2563eb" id="aq-admins">0</div>
+        <div class="admin-quick-stat-label">مشرفين</div>
+      </div>
+      <div class="admin-quick-stat">
+        <div class="admin-quick-stat-num" style="color:var(--g400)" id="aq-free">0</div>
+        <div class="admin-quick-stat-label">زوّار</div>
+      </div>
+    </div>
+    <div id="admin-new-users" style="margin-top:16px"></div>
+  </div>
+
+  <!-- Recent posts preview -->
+  <div class="dash-card">
+    <div class="dash-card-header">
+      <h3 class="dash-card-title">آخر المنشورات</h3>
+      <a href="community.html" class="btn btn-sm btn-outline">عرض الكل</a>
+    </div>
+    <div id="recent-posts">
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <h3>لا توجد منشورات بعد</h3>
+        <p>كن أول من ينشر في مجتمع TD Academy!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LearnWorlds CTA -->
+  <div class="lw-cta" id="welcome-banner">
+    <div class="lw-cta-text">
+      <h3>تابع تعلّمك على المنصة</h3>
+      <p>ادخل منصة LearnWorlds وتابع دروسك من حيث توقفت</p>
+    </div>
+    <a href="https://drhussientrading.learnworlds.com/courses" target="_blank" class="btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+      ادخل المنصة التعليمية
+    </a>
+  </div>
+
+</main>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+<script>
+const TIPS = [
+  'لا تتداول أبداً بمال لا تستطيع خسارته. إدارة رأس المال هي الأساس.',
+  'التداول ليس سباقاً — الصبر والانضباط هما مفتاح النجاح على المدى الطويل.',
+  'قبل أن تدخل أي صفقة، حدد نقطة الخروج سواء بربح أو بخسارة.',
+  'لا تدع العواطف تتحكم بقراراتك. ضع خطة والتزم بها.',
+  'تعلّم من خسائرك — كل خسارة هي درس مجاني في التداول.',
+  'لا تتبع القطيع. حلّل بنفسك واتخذ قرارات مبنية على بيانات.',
+  'الرسم البياني يحكي قصة — تعلّم قراءته قبل أن تفتح صفقة.',
+  'التداول الناجح = تحليل فني + إدارة مخاطر + انضباط نفسي.',
+  'ابدأ بمبالغ صغيرة وتدرّج. الأسواق ستبقى موجودة غداً.',
+  'المتداول الحقيقي يعرف متى يبقى خارج السوق تماماً.',
+  'لا تحاول التقاط القمم والقيعان — اتبع الاتجاه.',
+  'تنويع المحفظة لا يعني الدخول في كل شيء — بل اختيار الأفضل.',
+];
+
+function initDashboard(){
+  const user = requireAuth();
+  if(!user) return;
+  const u = refreshUser(user);
+  initSidebar(u);
+
+  // Profile hero
+  document.getElementById('hero-avatar').src = avatarSrc(u);
+  document.getElementById('hero-name').textContent = u.name;
+  const badge = document.getElementById('hero-role-badge');
+  badge.textContent = ROLES_AR[u.role];
+  badge.className = 'role-badge ' + u.role.replace('_','-');
+  document.getElementById('hero-bio').textContent = u.bio || 'عضو في مجتمع TD Academy';
+
+  // Role-specific hero color
+  const hero = document.getElementById('profile-hero');
+  if(u.role==='super_admin') hero.classList.add('hero-super-admin');
+  else if(u.role==='admin') hero.classList.add('hero-admin');
+
+  if(u.role==='free'){
+    document.getElementById('upgrade-banner').style.display='block';
+    document.getElementById('welcome-banner').style.display='none';
+  } else {
+    document.getElementById('upgrade-banner').style.display='none';
+  }
+
+  const users = getUsers();
+  const posts = getPosts();
+  document.getElementById('stat-members').textContent = users.length;
+  document.getElementById('stat-posts').textContent = posts.length;
+  document.getElementById('stat-subscribers').textContent = users.filter(x=>x.role==='subscriber'||x.role==='admin'||x.role==='super_admin').length;
+
+  // Daily tip
+  const tipIdx = Math.floor(Date.now() / 86400000) % TIPS.length;
+  document.getElementById('daily-tip').innerHTML = '<p>"' + TIPS[tipIdx] + '"</p><span class="tip-author">— TD Academy</span>';
+
+  // Admin panel
+  if(u.role==='super_admin' || u.role==='admin'){
+    document.getElementById('admin-panel').style.display='block';
+    document.getElementById('aq-total').textContent = users.length;
+    document.getElementById('aq-subs').textContent = users.filter(x=>x.role==='subscriber').length;
+    document.getElementById('aq-admins').textContent = users.filter(x=>x.role==='admin'||x.role==='super_admin').length;
+    document.getElementById('aq-free').textContent = users.filter(x=>x.role==='free').length;
+
+    // Recent users
+    const recentUsers = [...users].sort((a,b)=>(b.id||'').localeCompare(a.id||'')).slice(0,3);
+    const container = document.getElementById('admin-new-users');
+    container.innerHTML = '<div style="font-size:13px;font-weight:700;color:var(--g600);margin-bottom:10px">أحدث الأعضاء</div>' +
+      recentUsers.map(user => {
+        return '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--g100)">' +
+          '<img src="'+avatarSrc(user)+'" style="width:34px;height:34px;border-radius:8px;object-fit:cover">' +
+          '<div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--navy)">'+user.name+'</div>' +
+          '<div style="font-size:11px;color:var(--g400)">'+ROLES_AR[user.role]+'</div></div>' +
+        '</div>';
+      }).join('');
+  }
+
+  renderRecentPosts(posts, users);
+}
+
+function renderRecentPosts(posts, users){
+  const container = document.getElementById('recent-posts');
+  if(posts.length===0) return;
+  const recent = posts.slice(-3).reverse();
+  container.innerHTML = recent.map(post=>{
+    const author = users.find(u=>u.id===post.authorId)||{name:'مجهول',avatar:''};
+    return '<div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--g100)">'+
+      '<img src="'+avatarSrc(author)+'" style="width:42px;height:42px;border-radius:12px;object-fit:cover">'+
+      '<div style="flex:1;min-width:0">'+
+        '<div style="font-size:14px;font-weight:700;color:var(--navy)">'+author.name+'</div>'+
+        '<div style="font-size:13px;color:var(--g600);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+post.content.substring(0,80)+'</div>'+
+      '</div>'+
+      '<span style="font-size:12px;color:var(--g400);white-space:nowrap">'+timeAgo(post.timestamp)+'</span>'+
+    '</div>';
+  }).join('');
+}
+
+initDashboard();
+
+initNotifBell();
+// Hide "تابع تعلمك" for super_admin
+(function(){
+  var u = JSON.parse(localStorage.getItem('td_current_user')||'null');
+  if(u && u.role==='super_admin'){var wb=document.getElementById('welcome-banner');if(wb)wb.style.display='none';}
+})();
+document.addEventListener('click',function(e){
+  var bell=document.getElementById('notif-bell');var dd=document.getElementById('notif-dropdown');
+  if(bell&&dd&&!bell.contains(e.target)&&!dd.contains(e.target))dd.classList.remove('show');
+});
+</script>
+
+</body>
+</html>
