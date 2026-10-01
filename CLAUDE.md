@@ -28,7 +28,9 @@ Card-section **glassmorphism** (core identity — keep it):
 - Sections paint their own texture so inner glass has something to refract: light = white 0.90 over `hero-bg.webp`, dark = navy/green over `hero-bg-blur.webp` (pre-blurred). Sections themselves have NO backdrop-filter (nested backdrop-filters break the inner glass)
 - Distortion: inline SVG `#glass-distort` after `<body>` on every public page + script adding `html.gd` (Chromium desktop only); applied to `.card`, `.testimonial`, `.card-dark`, `.community-card` only — keep it limited for performance
 - Don't use `::after` on glass components for anything else (it's the stroke)
-- Nav: full links ≥1101px, hamburger + CTA buttons 769–1100px, hamburger only ≤768px
+- Nav order (RTL logic): logo → CTA buttons (login + start) → links → contact on the far left. Full links ≥1101px, hamburger + CTAs 769–1100px, hamburger only ≤768px
+- Sections alternate dark / light down every page (hero = dark, then light, dark, …). Flip a section with `sec-dark`; components inside dark sections are restyled automatically
+- Green buttons are glass too (translucent green, gloss line, stroke, inner shadow)
 - Only clickable cards lift on hover (`a.card`, `.blog-card`); non-clickable cards just change border
 - Readability first: body 16px, article text 17px, secondary text min `--g600` on light and white 0.6+ on dark
 - Headings use `clamp()` for fluid sizes
