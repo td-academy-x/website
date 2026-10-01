@@ -54,7 +54,7 @@ body{
 .nav-links{display:flex;align-items:center;gap:28px;list-style:none}
 .nav-links a{
   color:rgba(255,255,255,0.72);text-decoration:none;font-size:15px;font-weight:500;
-  transition:color .2s;position:relative;
+  transition:color .2s;position:relative;white-space:nowrap;
 }
 .nav-links a:hover,.nav-links a.active{color:var(--white)}
 .nav-links a.active::after{
@@ -455,3 +455,150 @@ a.card:hover{transform:translateY(-3px);border-color:var(--green)}
   *,*::before,*::after{transition:none!important;animation:none!important}
   .fade-up{opacity:1;transform:none}
 }
+
+/* ============ NAV: medium screens ============ */
+@media(max-width:1280px){
+  .nav-links{gap:20px}
+  .nav-email{display:none}
+}
+@media(min-width:769px) and (max-width:1100px){
+  .nav-contact{display:none}
+  .nav-toggle{display:block;order:3}
+  .nav-cta-group{margin-right:auto;margin-left:12px}
+  .nav-links{
+    position:fixed;top:64px;right:-100%;width:280px;height:calc(100vh - 64px);
+    background:rgba(10,22,40,0.92);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+    flex-direction:column;align-items:flex-start;padding:32px 24px;gap:24px;
+    transition:right .3s;border-left:1px solid var(--glass-border);
+  }
+  .nav-links.open{right:0}
+}
+
+/* ============ GLASS LAYER: glossy stroke, soft blur, distortion, inner shadow ============ */
+:root{
+  --stroke-dark:linear-gradient(135deg,rgba(255,255,255,0.55),rgba(255,255,255,0.10) 35%,rgba(255,255,255,0.04) 65%,rgba(16,185,129,0.45));
+  --stroke-light:linear-gradient(135deg,rgba(255,255,255,1),rgba(203,213,225,0.55) 35%,rgba(203,213,225,0.25) 65%,rgba(16,185,129,0.5));
+  --glass-soft:blur(8px) saturate(150%);
+}
+
+/* Sections paint their own (pre-blurred) texture so the glass inside has something to refract */
+.sec{
+  background:linear-gradient(rgba(255,255,255,0.90),rgba(255,255,255,0.90)),url('hero-bg.webp') center/cover;
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+}
+.trust-bar{background:linear-gradient(rgba(255,255,255,0.90),rgba(255,255,255,0.90)),url('hero-bg.webp') center/cover;backdrop-filter:none;-webkit-backdrop-filter:none}
+.sec-alt{background:linear-gradient(rgba(248,250,252,0.88),rgba(248,250,252,0.88)),url('hero-bg.webp') center/cover}
+.sec-dark,.cta-banner{
+  background:linear-gradient(160deg,rgba(10,22,40,0.72),rgba(6,40,30,0.62)),url('money-bg-blur.webp') center/cover;
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+  box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,0.10);
+}
+
+/* Shared glass surfaces */
+.card,.blog-card,.t-item,.testimonial,
+.card-dark,.community-card,
+.btn-secondary,.sec-tag,.blog-card-tag,.tag,.card-icon,.contact-item-icon,
+.btn-primary,.nav-cta{
+  position:relative;
+  backdrop-filter:var(--glass-soft);-webkit-backdrop-filter:var(--glass-soft);
+}
+/* glossy stroke */
+.card::after,.blog-card::after,.t-item::after,.testimonial::after,
+.card-dark::after,.community-card::after,
+.btn-secondary::after,.sec-tag::after,.blog-card-tag::after,.tag::after,.card-icon::after,.contact-item-icon::after,
+.btn-primary::after,.nav-cta::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+  background:var(--stroke-light);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+}
+
+/* Light glass (on white sections) */
+.card,.blog-card,.t-item,.testimonial{
+  background:
+    radial-gradient(120% 90% at 100% 0%,rgba(16,185,129,0.16),transparent 55%),
+    radial-gradient(90% 80% at 0% 100%,rgba(212,168,83,0.14),transparent 60%),
+    linear-gradient(160deg,rgba(255,255,255,0.80),rgba(241,245,249,0.50));
+  border-color:transparent;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.95),
+    inset 0 -10px 24px rgba(10,22,40,0.04),
+    inset 0 0 0 1px rgba(255,255,255,0.25),
+    0 8px 24px rgba(10,22,40,0.08);
+}
+.testimonial{border-right:4px solid var(--green)}
+.card:hover,.blog-card:hover,.t-item:hover{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    inset 0 -10px 24px rgba(16,185,129,0.06),
+    0 14px 36px rgba(10,22,40,0.12);
+}
+
+/* Dark glass (on dark sections) */
+.card-dark,.community-card{
+  background:
+    radial-gradient(120% 90% at 100% 0%,rgba(16,185,129,0.20),transparent 55%),
+    radial-gradient(90% 80% at 0% 100%,rgba(212,168,83,0.10),transparent 60%),
+    linear-gradient(160deg,rgba(26,51,85,0.45),rgba(10,22,40,0.25));
+  border-color:transparent;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.20),
+    inset 0 -12px 30px rgba(0,0,0,0.20),
+    inset 0 0 24px rgba(255,255,255,0.03),
+    0 10px 30px rgba(0,0,0,0.25);
+}
+.card-dark::after,.community-card::after{background:var(--stroke-dark)}
+
+/* Primary button: liquid green */
+.btn-primary,.nav-cta{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,0.30),rgba(255,255,255,0) 55%),
+    linear-gradient(135deg,#14d095,var(--green-hover));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.50),
+    inset 0 -3px 8px rgba(0,0,0,0.15),
+    0 6px 24px rgba(16,185,129,0.35);
+}
+.btn-primary::after,.nav-cta::after{background:linear-gradient(135deg,rgba(255,255,255,0.75),rgba(255,255,255,0.05) 50%,rgba(255,255,255,0.35))}
+.btn-primary:hover,.nav-cta:hover{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,0.36),rgba(255,255,255,0) 55%),
+    linear-gradient(135deg,#10B981,#047857);
+}
+
+/* Secondary button: clear glass */
+.btn-secondary{
+  background:linear-gradient(160deg,rgba(255,255,255,0.65),rgba(255,255,255,0.30));
+  border-color:transparent;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.9),inset 0 -6px 14px rgba(10,22,40,0.05),0 4px 14px rgba(10,22,40,0.06);
+}
+.sec-dark .btn-secondary,.cta-banner .btn-secondary,.page-hero .btn-secondary,.hero .btn-secondary{
+  background:linear-gradient(160deg,rgba(255,255,255,0.12),rgba(255,255,255,0.03));
+  border-color:transparent;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.22),inset 0 -8px 18px rgba(0,0,0,0.2),0 6px 20px rgba(0,0,0,0.2);
+}
+.sec-dark .btn-secondary::after,.cta-banner .btn-secondary::after,.page-hero .btn-secondary::after,.hero .btn-secondary::after{background:var(--stroke-dark)}
+
+/* Tags / pills */
+.sec-tag,.blog-card-tag{
+  background:linear-gradient(160deg,rgba(209,250,229,0.85),rgba(209,250,229,0.5));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.9),inset 0 -2px 6px rgba(6,95,70,0.08);
+}
+.sec-dark .sec-tag,.page-hero .sec-tag,.cta-banner .sec-tag,.tag{
+  background:linear-gradient(160deg,rgba(16,185,129,0.22),rgba(16,185,129,0.08));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),inset 0 -2px 8px rgba(0,0,0,0.15);
+}
+.sec-dark .sec-tag::after,.page-hero .sec-tag::after,.cta-banner .sec-tag::after,.tag::after{background:var(--stroke-dark)}
+
+/* Icon tiles */
+.card-icon,.contact-item-icon{
+  background:linear-gradient(160deg,rgba(16,185,129,0.18),rgba(16,185,129,0.06));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.6),inset 0 -4px 10px rgba(6,95,70,0.08);
+}
+.card-dark .card-icon::after,.sec-dark .card-icon::after{background:var(--stroke-dark)}
+
+/* Distortion (Chromium desktop only — enabled by the inline script adding html.gd) */
+html.gd .card,html.gd .testimonial,html.gd .card-dark,html.gd .community-card{
+  backdrop-filter:url(#glass-distort) var(--glass-soft);
+}
+
