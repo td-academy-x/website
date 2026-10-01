@@ -775,3 +775,60 @@ html.gd .btn-primary{backdrop-filter:url(#glass-distort) blur(10px) saturate(160
     linear-gradient(180deg,rgba(255,255,255,0.34),rgba(255,255,255,0.12) 48%,rgba(255,255,255,0.06) 52%),
     linear-gradient(160deg,rgba(255,255,255,0.22),rgba(255,255,255,0.10));
 }
+
+/* ============ LIGHT SECTIONS: visible frosted, distorted glass ============ */
+.sec,.trust-bar{
+  --sec-bg:
+    linear-gradient(115deg,transparent 20%,rgba(255,255,255,0.45) 38%,transparent 52%),
+    radial-gradient(70% 60% at 100% 0%,rgba(16,185,129,0.16),transparent 60%),
+    radial-gradient(60% 55% at 0% 100%,rgba(212,168,83,0.14),transparent 60%),
+    linear-gradient(165deg,rgba(255,255,255,0.70),rgba(241,245,249,0.60)),
+    url('hero-bg.webp') center/cover;
+}
+.sec-alt{
+  --sec-bg:
+    linear-gradient(65deg,transparent 45%,rgba(255,255,255,0.45) 60%,transparent 74%),
+    radial-gradient(70% 60% at 0% 0%,rgba(16,185,129,0.16),transparent 60%),
+    radial-gradient(60% 55% at 100% 100%,rgba(212,168,83,0.14),transparent 60%),
+    linear-gradient(165deg,rgba(248,250,252,0.70),rgba(226,232,240,0.60)),
+    url('hero-bg.webp') center/cover;
+}
+.sec::before,.trust-bar::before{filter:blur(3px)}
+html.gd .sec::before,html.gd .trust-bar::before{filter:blur(2px) url(#glass-distort-lg)}
+.sec-dark::before{filter:none}
+html.gd .sec-dark::before{filter:url(#glass-distort-lg)}
+/* keep text readable on the more transparent glass */
+.sec:not(.sec-dark) .sec-sub,.sec:not(.sec-dark) .sec-inner > p,.sec:not(.sec-dark) .about-preview-text p,.trust-label{color:var(--g700)}
+
+/* dark sections keep their dark glass (must come after the light .sec rule) */
+.sec.sec-dark{
+  --sec-bg:
+    linear-gradient(115deg,transparent 25%,rgba(255,255,255,0.06) 40%,transparent 52%),
+    radial-gradient(70% 60% at 100% 0%,rgba(16,185,129,0.18),transparent 60%),
+    radial-gradient(60% 55% at 0% 100%,rgba(212,168,83,0.08),transparent 60%),
+    linear-gradient(160deg,rgba(10,22,40,0.72),rgba(6,40,30,0.62)),
+    url('hero-bg-blur.webp') center/cover;
+}
+
+/* ============ BUTTONS: same see-through glass as the sections ============ */
+.btn-secondary{
+  background:
+    linear-gradient(115deg,transparent 30%,rgba(255,255,255,0.18) 45%,transparent 58%),
+    linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0.03) 48%,rgba(255,255,255,0) 52%),
+    linear-gradient(160deg,rgba(26,51,85,0.62),rgba(10,22,40,0.55));
+  backdrop-filter:blur(10px) saturate(160%);-webkit-backdrop-filter:blur(10px) saturate(160%);
+  text-shadow:0 1px 2px rgba(0,0,0,0.35);
+}
+.btn-primary,.nav-cta{
+  background:
+    linear-gradient(115deg,transparent 30%,rgba(255,255,255,0.22) 45%,transparent 58%),
+    linear-gradient(180deg,rgba(255,255,255,0.38),rgba(255,255,255,0.06) 48%,rgba(255,255,255,0) 52%),
+    linear-gradient(135deg,rgba(20,208,149,0.70),rgba(5,150,105,0.58));
+}
+.sec-dark .btn-secondary,.cta-banner .btn-secondary,.page-hero .btn-secondary,.hero .btn-secondary{
+  background:
+    linear-gradient(115deg,transparent 30%,rgba(255,255,255,0.20) 45%,transparent 58%),
+    linear-gradient(180deg,rgba(255,255,255,0.28),rgba(255,255,255,0.08) 48%,rgba(255,255,255,0.04) 52%),
+    linear-gradient(160deg,rgba(255,255,255,0.16),rgba(255,255,255,0.06));
+}
+html.gd .btn-primary,html.gd .btn-secondary{backdrop-filter:url(#glass-distort) blur(6px) saturate(160%)}
