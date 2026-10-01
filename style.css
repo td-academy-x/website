@@ -832,3 +832,14 @@ html.gd .sec-dark::before{filter:url(#glass-distort-lg)}
     linear-gradient(160deg,rgba(255,255,255,0.16),rgba(255,255,255,0.06));
 }
 html.gd .btn-primary,html.gd .btn-secondary{backdrop-filter:url(#glass-distort) blur(6px) saturate(160%)}
+
+/* ============ TEXT WEIGHT: body copy heavier, still lighter than headings (700–900) ============ */
+body{font-weight:500}
+p,li,label,input,textarea,select,
+.sec-sub,.trust-label,.t-desc,.card p,.blog-card-body p,.blog-card-meta,.post-meta,
+.testimonial p,.about-preview-text p,.footer-brand p,.footer-links a,.footer-bottom,
+.community-card p,.community-card-time,.community-card-stats span,.contact-item-text,.contact-item-label,
+.page-hero p,.hero-sub,.cta-banner p{font-weight:500}
+.trust-label,.t-title,.nav-links a,.blog-card-tag,.sec-tag{font-weight:600}
+.trust-label{font-size:14px;color:var(--g800)}
+.blog-card-meta,.post-meta,.community-card-time,.community-card-stats span,.contact-item-label,.footer-bottom{font-weight:600}

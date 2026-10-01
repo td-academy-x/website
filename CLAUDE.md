@@ -32,7 +32,7 @@ Card-section **glassmorphism** (core identity — keep it):
 - Sections alternate dark / light down every page (hero = dark, then light, dark, …). Flip a section with `sec-dark`; components inside dark sections are restyled automatically
 - Green buttons are glass too (translucent green, gloss line, stroke, inner shadow)
 - Only clickable cards lift on hover (`a.card`, `.blog-card`); non-clickable cards just change border
-- Readability first: body 16px, article text 17px, secondary text min `--g600` on light and white 0.6+ on dark
+- Readability first: body 16px weight 500 (small labels/meta 600, headings 700–900), article text 17px, secondary text min `--g600` on light and white 0.6+ on dark
 - Headings use `clamp()` for fluid sizes
 - Respect `prefers-reduced-motion`; visible `:focus-visible` outline
 - Performance budget: any background image < 300KB WebP, other images < 100KB WebP, no new fonts
