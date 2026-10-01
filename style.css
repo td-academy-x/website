@@ -18,7 +18,7 @@ body{
   background:
     radial-gradient(1000px 600px at 85% -10%,rgba(16,185,129,0.14),transparent 60%),
     linear-gradient(rgba(4,28,16,0.84),rgba(4,28,16,0.84)),
-    url('money-bg.webp') center / cover;
+    url('hero-bg.webp') center / cover;
   background-color:var(--navy);
   background-attachment:fixed;
   color:var(--g800);
@@ -489,7 +489,7 @@ a.card:hover{transform:translateY(-3px);border-color:var(--green)}
 .trust-bar{background:linear-gradient(rgba(255,255,255,0.90),rgba(255,255,255,0.90)),url('hero-bg.webp') center/cover;backdrop-filter:none;-webkit-backdrop-filter:none}
 .sec-alt{background:linear-gradient(rgba(248,250,252,0.88),rgba(248,250,252,0.88)),url('hero-bg.webp') center/cover}
 .sec-dark,.cta-banner{
-  background:linear-gradient(160deg,rgba(10,22,40,0.72),rgba(6,40,30,0.62)),url('money-bg-blur.webp') center/cover;
+  background:linear-gradient(160deg,rgba(10,22,40,0.72),rgba(6,40,30,0.62)),url('hero-bg-blur.webp') center/cover;
   backdrop-filter:none;-webkit-backdrop-filter:none;
   box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,0.10);
 }
@@ -633,7 +633,7 @@ html.gd .card,html.gd .testimonial,html.gd .card-dark,html.gd .community-card{
     radial-gradient(70% 60% at 100% 0%,rgba(16,185,129,0.18),transparent 60%),
     radial-gradient(60% 55% at 0% 100%,rgba(212,168,83,0.08),transparent 60%),
     linear-gradient(160deg,rgba(10,22,40,0.72),rgba(6,40,30,0.62)),
-    url('money-bg-blur.webp') center/cover;
+    url('hero-bg-blur.webp') center/cover;
   background:transparent;
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.18),

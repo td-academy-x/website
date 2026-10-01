@@ -20,12 +20,12 @@ The user has granted blanket approval for all operations:
 
 ### Design Philosophy
 Card-section **glassmorphism** (core identity — keep it):
-- Body background: dark green overlay + soft green glow on `money-bg.webp` texture (fixed on desktop, scroll on mobile)
+- Body background: dark green overlay + soft green glow on `hero-bg.webp` texture (fixed on desktop, scroll on mobile)
 - Each section is a floating glass card: `max-width: var(--wrap)` (1200px), centered, `border-radius: var(--radius)` (20px), 16px gap, 16px side gutter below 1232px
 - Glass tokens: `--glass-dark` (navy 0.62), `--glass-light` (white 0.94), `--glass-border`, `--blur` (`blur(18px) saturate(140%)`) — always use the tokens, always add `-webkit-backdrop-filter`
 - Dark sections / nav / footer / CTA = `--glass-dark` + `--blur`; light sections = `--glass-light` + `--blur` (text stays readable)
 - Glass layer (bottom of `style.css`) on cards, buttons, tags, icon tiles: glossy gradient stroke (`::after` mask, `--stroke-light` / `--stroke-dark`), soft blur (`--glass-soft`), inner shadows, brand-color radial gradients (green top corner, gold bottom corner)
-- Sections paint their own texture so inner glass has something to refract: light = white 0.90 over `hero-bg.webp`, dark = navy/green over `money-bg-blur.webp` (pre-blurred). Sections themselves have NO backdrop-filter (nested backdrop-filters break the inner glass)
+- Sections paint their own texture so inner glass has something to refract: light = white 0.90 over `hero-bg.webp`, dark = navy/green over `hero-bg-blur.webp` (pre-blurred). Sections themselves have NO backdrop-filter (nested backdrop-filters break the inner glass)
 - Distortion: inline SVG `#glass-distort` after `<body>` on every public page + script adding `html.gd` (Chromium desktop only); applied to `.card`, `.testimonial`, `.card-dark`, `.community-card` only — keep it limited for performance
 - Don't use `::after` on glass components for anything else (it's the stroke)
 - Nav: full links ≥1101px, hamburger + CTA buttons 769–1100px, hamburger only ≤768px
