@@ -602,3 +602,54 @@ html.gd .card,html.gd .testimonial,html.gd .card-dark,html.gd .community-card{
   backdrop-filter:url(#glass-distort) var(--glass-soft);
 }
 
+
+/* ============ GLASS SECTIONS (light + dark) ============
+   Texture lives in ::before so it can be distorted with a plain `filter`
+   without turning the section into a backdrop root for the cards inside. */
+.sec,.trust-bar{
+  --sec-bg:
+    radial-gradient(70% 60% at 100% 0%,rgba(16,185,129,0.14),transparent 60%),
+    radial-gradient(60% 55% at 0% 100%,rgba(212,168,83,0.12),transparent 60%),
+    linear-gradient(165deg,rgba(255,255,255,0.86),rgba(241,245,249,0.72)),
+    url('hero-bg.webp') center/cover;
+  position:relative;isolation:isolate;overflow:hidden;
+  background:transparent;
+  border:none;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    inset 0 40px 80px rgba(255,255,255,0.35),
+    inset 0 -40px 80px rgba(10,22,40,0.06),
+    0 1px 2px rgba(0,0,0,0.25),0 16px 48px rgba(0,0,0,0.35);
+}
+.sec-alt{
+  --sec-bg:
+    radial-gradient(70% 60% at 0% 0%,rgba(16,185,129,0.14),transparent 60%),
+    radial-gradient(60% 55% at 100% 100%,rgba(212,168,83,0.12),transparent 60%),
+    linear-gradient(165deg,rgba(248,250,252,0.84),rgba(226,232,240,0.70)),
+    url('hero-bg.webp') center/cover;
+}
+.sec-dark{
+  --sec-bg:
+    radial-gradient(70% 60% at 100% 0%,rgba(16,185,129,0.18),transparent 60%),
+    radial-gradient(60% 55% at 0% 100%,rgba(212,168,83,0.08),transparent 60%),
+    linear-gradient(160deg,rgba(10,22,40,0.72),rgba(6,40,30,0.62)),
+    url('money-bg-blur.webp') center/cover;
+  background:transparent;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.18),
+    inset 0 -40px 80px rgba(0,0,0,0.25),
+    0 1px 2px rgba(0,0,0,0.25),0 16px 48px rgba(0,0,0,0.35);
+}
+.sec::before,.trust-bar::before{
+  content:'';position:absolute;inset:-24px;z-index:-1;pointer-events:none;
+  background:var(--sec-bg);
+}
+html.gd .sec::before,html.gd .trust-bar::before{filter:url(#glass-distort)}
+/* glossy section stroke */
+.sec::after,.trust-bar::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;z-index:1;
+  background:linear-gradient(135deg,rgba(255,255,255,1),rgba(255,255,255,0.35) 30%,rgba(203,213,225,0.25) 60%,rgba(16,185,129,0.55));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+}
+.sec-dark::after{background:var(--stroke-dark)}
