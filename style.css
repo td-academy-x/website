@@ -653,3 +653,8 @@ html.gd .sec::before,html.gd .trust-bar::before{filter:url(#glass-distort)}
   -webkit-mask-composite:xor;mask-composite:exclude;
 }
 .sec-dark::after{background:var(--stroke-dark)}
+
+/* ============ FULL-WIDTH SECTIONS ============
+   Section cards span the screen (16px gutter); only the content inside stays narrow. */
+.sec,.trust-bar,.cta-banner,.card-section{max-width:none;margin-left:16px;margin-right:16px}
+.page-hero{max-width:none;margin:0}

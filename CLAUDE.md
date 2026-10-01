@@ -21,7 +21,7 @@ The user has granted blanket approval for all operations:
 ### Design Philosophy
 Card-section **glassmorphism** (core identity — keep it):
 - Body background: dark green overlay + soft green glow on `hero-bg.webp` texture (fixed on desktop, scroll on mobile)
-- Each section is a floating glass card: `max-width: var(--wrap)` (1200px), centered, `border-radius: var(--radius)` (20px), 16px gap, 16px side gutter below 1232px
+- Each section is a full-width floating glass card (16px side gutter, 16px gap), `border-radius: var(--radius)` (20px); content inside stays narrow (`.sec-inner`, `.container` = `var(--wrap)` 1200px)
 - Glass tokens: `--glass-dark` (navy 0.62), `--glass-light` (white 0.94), `--glass-border`, `--blur` (`blur(18px) saturate(140%)`) — always use the tokens, always add `-webkit-backdrop-filter`
 - Dark sections / nav / footer / CTA = `--glass-dark` + `--blur`; light sections = `--glass-light` + `--blur` (text stays readable)
 - Glass layer (bottom of `style.css`) on cards, buttons, tags, icon tiles: glossy gradient stroke (`::after` mask, `--stroke-light` / `--stroke-dark`), soft blur (`--glass-soft`), inner shadows, brand-color radial gradients (green top corner, gold bottom corner)
