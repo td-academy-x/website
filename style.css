@@ -757,3 +757,21 @@ html.gd .btn-primary{backdrop-filter:url(#glass-distort) blur(10px) saturate(160
   color:#6EE7B7;
   box-shadow:inset 0 1px 0 rgba(255,255,255,0.25),inset 0 0 18px rgba(16,185,129,0.25),0 0 24px rgba(16,185,129,0.45),0 8px 22px rgba(10,22,40,0.22);
 }
+
+/* Secondary button on dark backgrounds: clear white glass, white text */
+.sec-dark .btn-secondary,.cta-banner .btn-secondary,.page-hero .btn-secondary,.hero .btn-secondary,
+.sec-dark .btn-secondary:hover,.cta-banner .btn-secondary:hover,.page-hero .btn-secondary:hover,.hero .btn-secondary:hover{
+  color:var(--white);
+}
+.sec-dark .btn-secondary,.cta-banner .btn-secondary,.page-hero .btn-secondary,.hero .btn-secondary{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,0.28),rgba(255,255,255,0.08) 48%,rgba(255,255,255,0.04) 52%),
+    linear-gradient(160deg,rgba(255,255,255,0.16),rgba(255,255,255,0.06));
+  backdrop-filter:blur(10px) saturate(150%);-webkit-backdrop-filter:blur(10px) saturate(150%);
+  text-shadow:0 1px 2px rgba(0,0,0,0.3);
+}
+.sec-dark .btn-secondary:hover,.cta-banner .btn-secondary:hover,.page-hero .btn-secondary:hover,.hero .btn-secondary:hover{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,0.34),rgba(255,255,255,0.12) 48%,rgba(255,255,255,0.06) 52%),
+    linear-gradient(160deg,rgba(255,255,255,0.22),rgba(255,255,255,0.10));
+}
