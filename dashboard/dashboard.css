@@ -541,7 +541,7 @@ tr:hover td{background:rgba(16,185,129,0.02)}
 }
 .auth-page::before{
   content:'';position:absolute;inset:0;
-  background:url('../../hero-bg.webp') center/cover no-repeat;
+  background:url('../hero-bg.webp') center/cover no-repeat;
   opacity:0.25;
 }
 .auth-page::after{

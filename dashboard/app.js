@@ -324,7 +324,7 @@ function seedIfEmpty(){
   let users = getUsers();
   if(users.length<=1){
     users = [
-      {id:'1',name:'د. حسين طاحون',email:'admin@tdacademy.net',password:'admin123',role:'super_admin',avatar:'../../dr-hussein.jpg',joinDate:'1 يناير 2026',bio:'مؤسس TD Academy — جرّاح ومتداول'},
+      {id:'1',name:'د. حسين طاحون',email:'admin@tdacademy.net',password:'admin123',role:'super_admin',avatar:'../dr-hussein.webp',joinDate:'1 يناير 2026',bio:'مؤسس TD Academy — جرّاح ومتداول'},
       {id:'2',name:'إبراهيم',email:'ibrahim@demo.com',password:'demo1234',role:'subscriber',avatar:'',joinDate:'15 مارس 2026',bio:'متداول مصري — بتعلّم من الصفر'},
       {id:'3',name:'أحمد',email:'ahmed@demo.com',password:'demo1234',role:'subscriber',avatar:'',joinDate:'20 فبراير 2026',bio:'مهندس برمجيات ومتداول'},
       {id:'4',name:'د. عمار',email:'ammar@demo.com',password:'demo1234',role:'subscriber',avatar:'',joinDate:'10 يناير 2026',bio:'طبيب ومتداول سوري'},
@@ -365,7 +365,7 @@ function seedIfEmpty(){
         ],
         pinned:false,
         announcement:false,
-        image:'/site/blog/img-technical-analysis.jpg',
+        image:'../blog/img-technical-analysis.webp',
         videoUrl:null
       },
       {
@@ -380,7 +380,7 @@ function seedIfEmpty(){
         ],
         pinned:false,
         announcement:false,
-        image:'/site/blog/img-stock-market.jpg',
+        image:'../blog/img-stock-market.webp',
         videoUrl:null
       },
       {
@@ -397,7 +397,7 @@ function seedIfEmpty(){
         ],
         pinned:false,
         announcement:false,
-        image:'/site/blog/img-trading-psychology.jpg',
+        image:'../blog/img-trading-psychology.webp',
         videoUrl:null
       },
       {
@@ -413,7 +413,7 @@ function seedIfEmpty(){
         ],
         pinned:false,
         announcement:false,
-        image:'/site/blog/img-technical-analysis.jpg',
+        image:'../blog/img-technical-analysis.webp',
         videoUrl:null
       },
       {

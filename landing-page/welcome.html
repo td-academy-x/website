@@ -34,7 +34,7 @@ body{
   background:linear-gradient(135deg,rgba(10,22,40,0.92),rgba(2,18,8,0.88))}
 @media(max-width:768px){
   .video-bg{display:none}
-  body{background:linear-gradient(135deg,rgba(10,22,40,0.95),rgba(2,18,8,0.92)),url('hero-bg.webp') center/cover no-repeat fixed}
+  body{background:linear-gradient(135deg,rgba(10,22,40,0.95),rgba(2,18,8,0.92)),url('../hero-bg.webp') center/cover no-repeat fixed}
 }
 
 /* LAYOUT */
@@ -131,15 +131,15 @@ body{
 </head>
 <body>
 
-<video class="video-bg" autoplay loop muted playsinline poster="hero-poster.jpg">
-  <source src="hero-video.webm" type="video/webm">
-  <source src="hero-video.mp4" type="video/mp4">
+<video class="video-bg" autoplay loop muted playsinline poster="../hero-poster.webp">
+  <source src="../hero-video.webm" type="video/webm">
+  <source src="../hero-video.mp4" type="video/mp4">
 </video>
 <div class="video-overlay"></div>
 
 <div class="welcome-shell">
 
-  <img src="logo-td.png" alt="Trading Doctor Academy" class="welcome-logo">
+  <img src="../logo-td.webp" alt="Trading Doctor Academy" class="welcome-logo">
   <p class="tagline">من الفوضى إلى المعرفة</p>
 
   <h1 class="welcome-h1">مرحباً بك في <span>Trading Doctor Academy</span></h1>
@@ -147,8 +147,8 @@ body{
 
   <!-- WELCOME VIDEO -->
   <div class="welcome-video">
-    <video controls autoplay muted playsinline preload="auto" poster="welcome-poster.jpg">
-      <source src="welcome-video.mp4" type="video/mp4">
+    <video controls autoplay muted playsinline preload="auto" poster="../welcome-poster.webp">
+      <source src="../welcome-video.mp4" type="video/mp4">
     </video>
   </div>
 
